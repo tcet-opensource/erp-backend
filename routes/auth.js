@@ -1,31 +1,11 @@
-var express = require('express');
+const express = require('express');
+const router = express.Router();
+const authController = require('../controller/auth');
 const authenticateToken = require('../middleware/auth');
-const { genrateToken } = require('../util');
-const user = require('../models/user');
-var router = express.Router();
 
-router.post('/', async function(req, res, next) {
-	const {id, password} = req.body;
-	let userValidated = await user.validateUser(id, password); 
-	if(userValidated){
-		userDetails = {
-		"uid": userValidated.uid,
-		"name": userValidated.name, 
-		"emailId":userValidated.emailId,
-		"type": userValidated.userType,
-		}
-		let token = genrateToken(userDetails);
-		userDetails["token"] = token;
-		res.send({res:"welcome", user:userDetails})
-	}
-	else{
-		res.status(403)
-		res.send({err:"incorrect ID password"});
-		}
-});
 
-router.post("/validateUser", authenticateToken, function(req, res, next) {
-  res.json({res: req.user, msg: "user validated", err:null})
-})
+router.post('/', authController.login);
+
+router.post("/validateUser", authenticateToken, authController.validateUser)
 
 module.exports = router;

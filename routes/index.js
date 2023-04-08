@@ -1,15 +1,8 @@
-var express = require('express');
-const { genrateToken } = require('../util');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const indexController = require('../controller/index')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.get("/token", function(req, res, next) {
-  res.send("token : " + genrateToken("User123456789"));
-})
-
+router.get('/', indexController.home);
 
 module.exports = router;
