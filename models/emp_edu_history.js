@@ -26,4 +26,4 @@ const employmentEducationHistorySchema = {
     phd: { type: Education },
     pdoc: { type: Education }
 }
-const EmploymentEducationHistorySchema = new connector.model('emp-edu-history',employmentEducationHistorySchema);
+const EmploymentEducationHistory = new connector.model('emp-edu-history',employmentEducationHistorySchema);
