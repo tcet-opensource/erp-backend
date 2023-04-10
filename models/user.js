@@ -10,7 +10,6 @@ const userSchema = {
 
 const User = new connector.model('User', userSchema);
  
-
 async function createUser(name, password, emailId, uid, userType){
   const user = new User({
     name: name, 
@@ -37,4 +36,22 @@ async function validateUser(uid, pass){
   return null;
 }
 
-module.exports = {validateUser:validateUser, createUser:createUser}; 
+async function checkUser(uid, emailId){
+  let user = await User.findOne({uid: uid, emailId:emailId}).catch(err=>console.log(err))
+  if(user)
+  	return true
+  else
+  	return false
+}
+
+async function updatePassword(uid, password){
+  let user = await User.findOne({uid:uid}).catch(err=>console.log(err))
+  if(user){
+  	user.password = password;
+  	let userUpdated = await user.save().then(res=>{console.log(res.password); return true}).catch(err=>{console.log(err);return false})
+  	return userUpdated;
+  	}
+  	return false;
+}
+
+module.exports = {validateUser:validateUser, createUser:createUser, checkUser:checkUser, updatePassword:updatePassword}; 

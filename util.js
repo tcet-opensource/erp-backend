@@ -1,8 +1,30 @@
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+require("dotenv").config()
+
+const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
 
 exports.genrateToken = (data)=>{
     return jwt.sign(data, process.env.TOKEN_SECRET);
 } 
+
+exports.sendOTP = async (to, otp)=>{
+console.log(transporter);
+	let info = await transporter.sendMail({
+		from: "erptcet@tcetmumbai.in",
+		to: to,
+		subject: "OTP verification for TCET ERP system",
+		text: `OTP for ERP system is ${otp}.`,
+	})
+	console.log(info.messageId)
+}
 
 /**
  * 
