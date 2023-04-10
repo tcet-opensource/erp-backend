@@ -16,7 +16,7 @@ const Education = {
     rank: { type: Number, required: true },
     passing_year: { type: String, required: true },
 }
-const employmentEducationHistorySchema = {
+const schema = {
     ssc: { type: Education, required: true },
     hsc: { type: Education, required: true },
     dip: { type: Education },
