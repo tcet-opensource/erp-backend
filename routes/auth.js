@@ -6,6 +6,7 @@ const authenticateToken = require('../middleware/auth');
 
 router.post('/', authController.login);
 
+
 router.post("/validateUser", authenticateToken, authController.validateUser)
 
 module.exports = router;
