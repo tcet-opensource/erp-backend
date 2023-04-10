@@ -16,7 +16,6 @@ exports.genrateToken = (data)=>{
 } 
 
 exports.sendOTP = async (to, otp)=>{
-console.log(transporter);
 	let info = await transporter.sendMail({
 		from: "erptcet@tcetmumbai.in",
 		to: to,

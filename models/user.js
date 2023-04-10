@@ -48,7 +48,7 @@ async function updatePassword(uid, password){
   let user = await User.findOne({uid:uid}).catch(err=>console.log(err))
   if(user){
   	user.password = password;
-  	let userUpdated = await user.save().then(res=>{console.log(res.password); return true}).catch(err=>{console.log(err);return false})
+  	let userUpdated = await user.save().then(res=>true).catch(err=>{console.log(err);return false})
   	return userUpdated;
   	}
   	return false;

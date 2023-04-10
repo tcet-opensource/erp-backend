@@ -27,11 +27,11 @@ exports.validateUser = function(req, res, next) {
   res.json({res: req.user, msg: "user validated", err:null})
 }
 
-exports.checkUser = function(req, res, next){
+exports.sendOTP = async function(req, res, next){
   const {uid, emailId} = req.body;
-  let userExists = user.checkUser(uid, emailId);
+  let userExists = await user.checkUser(uid, emailId);
   if(userExists){
-  	let otp = "1234";
+  	let otp = Math.floor(1000 + Math.random() * 9000);
   	otpStore[uid] = otp;
   	sendOTP(emailId, otp);
   	res.send({res:"otp sent to emailID"})
@@ -44,11 +44,14 @@ exports.checkUser = function(req, res, next){
 exports.resetPassword = async function(req, res, next){
 	const {uid, otp, password} = req.body;
 	if(otpStore[uid]==otp){
-	let passwordUpdated = await user.updatePassword(uid, password);
-	if(passwordUpdated)
-		res.send({res:"successfully updated password"})
+		let passwordUpdated = await user.updatePassword(uid, password);
+		if(passwordUpdated)
+			res.send({res:"successfully updated password"})
+		else
+			res.send({err:"Something went wrong while updating password"})
+		}
+	else{
+		res.send({err:"incorrect otp"});
 	}
-	//todo: update the error information 
-	res.send({err:"something went wrong"})
 }
 

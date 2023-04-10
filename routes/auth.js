@@ -8,7 +8,7 @@ router.post('/', authController.login);
 
 router.post("/validateUser", authenticateToken, authController.validateUser)
 
-router.post("/checkUser", authController.checkUser)
+router.post("/sendOTP", authController.sendOTP)
 
 router.post("/resetPassword", authController.resetPassword)
 module.exports = router;
