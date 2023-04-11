@@ -1,8 +1,7 @@
-import mongoose from 'mongoose';
 const { Schema, default: mongoose } = require('mongoose');
 const {connector} = require('./databaseUtil');
 
-const student_edu_Schema = new Schema({
+const studentEducationSchema = new Schema({
     personal_info: {
         name: { type: String, required: true },
         emailId: { type: String, unique: true, required: true },
@@ -50,7 +49,6 @@ const student_edu_Schema = new Schema({
         dte_user_password:{type:String,required:true},
         dte_user_id:{type:String,required:true},
     },
-
     graduation_details: {
         graduation_institute:{type:String,required:true},
         graduation_branch:{type:String,required:true},
@@ -62,5 +60,5 @@ const student_edu_Schema = new Schema({
         last_school_college_attended:{type:String,required:true},
     }
 })
-
-export default mongoose.model("edu", student_edu_Schema);   
+const studentEducation = new connector.model('std-edu',studentEducationSchema);
+module.exports={};
