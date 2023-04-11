@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 const { Schema, default: mongoose } = require('mongoose');
-// const {connector} = require('./databaseUtil');
+const {connector} = require('./databaseUtil');
 
 const student_edu_Schema = new Schema({
     personal_info: {
