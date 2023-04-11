@@ -63,26 +63,4 @@ const student_edu_Schema = new Schema({
     }
 })
 
-export default mongoose.model("edu", student_edu_Schema);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default mongoose.model("edu", student_edu_Schema);   
