@@ -1,7 +1,6 @@
 import { Schema } from 'mongoose';
 import { connector } from './databaseUtil';
 
-
 const studentMedicalSchema= new Schema({
     bloodGroup:{type:String, required:true},
     pastMedicalHistory:{type:String, required:true},
@@ -11,6 +10,5 @@ const studentMedicalSchema= new Schema({
     parentsContact:{type:String, required:true},
     relativeContacts:{type:String, required:true},
 })
-
 const medicalHistory=new connector.model('stu-med',studentMedicalSchema);
 module.exports={};
