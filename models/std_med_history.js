@@ -1,4 +1,3 @@
-import { Schema } from 'mongoose';
 import { connector } from './databaseUtil';
 
 const studentMedicalSchema=({
