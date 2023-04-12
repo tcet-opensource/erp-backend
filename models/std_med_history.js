@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 import { connector } from './databaseUtil';
 
-const studentMedicalSchema= new Schema({
+const studentMedicalSchema=({
     bloodGroup:{type:String, required:true},
     pastMedicalHistory:{type:String, required:true},
     immunisationHistory:{type:String, required:true},
