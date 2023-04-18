@@ -1,8 +1,32 @@
 const jwt = require("jsonwebtoken");
-
+const bcrypt = require("bcryptjs");
 exports.genrateToken = (data)=>{
     return jwt.sign(data, process.env.TOKEN_SECRET);
 } 
+
+exports.hashPassword = async(password) =>{
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password,salt);
+        return hashedPassword;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+exports.comparePasswords = async(userPassword,storedPassword) =>{
+    try {
+        bcrypt.compare(userPassword,storedPassword,(err,success)=>{
+            if(err) throw Error();
+            if(success){
+                return true;
+            }
+            else return false;
+        })
+    } catch (error) {
+        return error.message;
+    }
+}
 
 /**
  * 
