@@ -8,7 +8,6 @@ function authenticateToken(req, res, next) {
 
   try {
     const payload = jwt.verify(token, process.env.TOKEN_SECRET);
-    console.log('try');
     const decryptedIP = decrypt(payload.ip);
     if (decryptedIP !== req.ip) {
       res.status(403)
