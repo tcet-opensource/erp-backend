@@ -1,4 +1,4 @@
-const { genrateToken } = require('../util');
+const { generateToken } = require('../util');
 const user = require('../models/user');
 
 exports.login = async function(req, res, next) {
@@ -11,7 +11,7 @@ exports.login = async function(req, res, next) {
 		"emailId":userValidated.emailId,
 		"type": userValidated.userType,
 		}
-		let token = genrateToken(userDetails);
+		let token = generateToken(userDetails, req.ip);
 		userDetails["token"] = token;
 		res.send({res:"welcome", user:userDetails})
 	}
