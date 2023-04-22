@@ -17,6 +17,7 @@ const Education = {
     passing_year: { type: String, required: true },
 }
 const employeeEducationHistorySchema = {
+    uid: {type: String, require: true},
     ssc: { type: Education, required: true },
     hsc: { type: Education, required: true },
     dip: { type: Education },
@@ -26,4 +27,4 @@ const employeeEducationHistorySchema = {
     phd: { type: Education },
     pdoc: { type: Education }
 }
-const employeeEducationHistory = new connector.model('emp-edu-history',employeeEducationHistorySchema);
+const employeeEducationHistory = new connector.model('Employee education history',employeeEducationHistorySchema);

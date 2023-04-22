@@ -1,13 +1,7 @@
-const { Schema, default: mongoose } = require('mongoose');
-const {connector} = require('./databaseUtil');
+const {connector} = require('../databaseUtil');
 
-const studentEducationSchema = new Schema({
-    personal_info: {
-        name: { type: String, required: true },
-        emailId: { type: String, unique: true, required: true },
-        gender: { type: String, required: true },
-        password: { type: String, required: true },
-    },
+const studentEducationSchema = {
+    uid: {type: String, require: true},
     //tenth_details
     tenth: {
         marks: { type: String, required: true },
@@ -59,6 +53,6 @@ const studentEducationSchema = new Schema({
         scholarship_number:{type:String,required:false},
         last_school_college_attended:{type:String,required:true},
     }
-})
-const studentEducation = new connector.model('std-edu',studentEducationSchema);
+}
+const studentEducation = new connector.model('Student education',studentEducationSchema);
 module.exports={};

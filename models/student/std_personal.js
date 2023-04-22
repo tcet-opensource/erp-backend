@@ -1,6 +1,7 @@
 import { connector } from './databaseUtil';
 
 const stdPersonalSchema = {
+    uid: {type: String, require: true},
     title:{type: String, required: true},
     firstName:{type: String, required: true},
     middleName:{type: String, required: true},
@@ -80,4 +81,4 @@ const stdPersonalSchema = {
     noOfDocumentsUploaded:{type: Number, required: true},
 };
 
-const stdPersonal = new connector.model('Student_Personal', stdPersonalSchema);
+const stdPersonal = new connector.model('Student personal', stdPersonalSchema);
