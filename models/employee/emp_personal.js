@@ -1,6 +1,6 @@
 import { connector } from './databaseUtil';
 
-const empPersonalSchema = {
+const employeePersonalSchema = {
    uid: {type: String, require:true},
    title: { type: String, required: true },
    empFirstName: { type: String, required: true },
@@ -61,6 +61,6 @@ const empPersonalSchema = {
    previousLastName: { type: String },
 };
 
-const empPersonal = new connector.model('Employee personal', empPersonalSchema);
+const empPersonal = new connector.model('Employee personal', employeePersonalSchema);
 
 module.exports = {};

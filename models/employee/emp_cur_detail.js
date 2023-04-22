@@ -11,7 +11,7 @@ const employeeCurrentEmployementSchema = {
 };
 
 const employeeCurrentEmployement = new connector.model(
-  "Employee current details",
+  "Employee current Employement",
   employeeCurrentEmployementSchema
 );
 

@@ -1,7 +1,7 @@
 const { connector } = require("./databaseUtil");
 
-const stdBankSchema = {
-  userId: {
+const studentBankSchema = {
+  uid: {
     type: String,
     required: true,
     unique: true,
@@ -34,5 +34,5 @@ const stdBankSchema = {
   },
 };
 
-const std_bank = new connector.model("stdBankSchema", stdBankSchema);
+const stdBank = new connector.model("Student bank", studentBankSchema);
 module.exports = {};
