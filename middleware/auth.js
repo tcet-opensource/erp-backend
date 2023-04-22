@@ -14,6 +14,7 @@ function authenticateToken(req, res, next) {
       res.send({err:"Unauthorized"});
     }
 
+    req.user = payload.data;
     next();
   } catch (error) {
     res.status(403)
