@@ -1,5 +1,16 @@
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const crypto = require("crypto");
+require("dotenv").config()
+
+const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
 
 const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
@@ -22,6 +33,16 @@ exports.decrypt = (IP) => {
     let decrypted = decipher.update(IP, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
     return decrypted;
+}
+
+exports.sendOTP = async (to, otp)=>{
+	let info = await transporter.sendMail({
+		from: "erptcet@tcetmumbai.in",
+		to: to,
+		subject: "OTP verification for TCET ERP system",
+		text: `OTP for ERP system is ${otp}.`,
+	})
+	console.log(info.messageId)
 }
 
 /**
