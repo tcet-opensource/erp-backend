@@ -56,7 +56,6 @@ async function updatePassword(uid, password){
 
 async function deleteUser(uid){
   const res = await User.findOneAndDelete({uid: {$eq: uid}});
-  console.log(res)
   return res;
 }
 
