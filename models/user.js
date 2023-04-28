@@ -54,4 +54,10 @@ async function updatePassword(uid, password){
   	return false;
 }
 
-module.exports = {validateUser:validateUser, createUser:createUser, checkUser:checkUser, updatePassword:updatePassword}; 
+async function deleteUser(uid){
+  const res = await User.findOneAndDelete({uid: {$eq: uid}});
+  console.log(res)
+  return res;
+}
+
+module.exports = {validateUser:validateUser, createUser:createUser, checkUser:checkUser, updatePassword:updatePassword, deleteUser:deleteUser}; 
