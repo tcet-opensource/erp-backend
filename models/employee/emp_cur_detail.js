@@ -1,6 +1,7 @@
-const { connector } = require("./databaseUtil");
+const { connector } = require("../databaseUtil");
 
 const employeeCurrentEmployementSchema = {
+  uid: {type: String, require: true},
   date_of_joining: { type: Date, required: true },
   department_name: { type: String, required: true },
   designation: { type: String, required: true },
@@ -10,7 +11,7 @@ const employeeCurrentEmployementSchema = {
 };
 
 const employeeCurrentEmployement = new connector.model(
-  "empCurrentDetails",
+  "Employee current Employement",
   employeeCurrentEmployementSchema
 );
 

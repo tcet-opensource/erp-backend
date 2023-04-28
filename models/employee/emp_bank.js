@@ -1,7 +1,7 @@
-const { connector } = require("./databaseUtil");
+const { connector } = require("../databaseUtil");
 
-const EmpBankSchema = {
-  userId: {
+const employeeBankSchema = {
+  uid: {
     type: String,
     required: true,
     unique: true,
@@ -37,5 +37,5 @@ const EmpBankSchema = {
   },
 };
 
-const Bank = new connector.model("EmpBank", EmpBankSchema);
+const empBank = new connector.model("Employee bank", employeeBankSchema);
 module.exports = {};

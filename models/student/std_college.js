@@ -1,67 +1,63 @@
-const { connector } = require("./databaseUtil");
+const { connector } = require("../databaseUtil");
 
-const StudentCollegeSchema = {
-  userId: {
+const studentCollegeSchema = {
+  uid: {
     type: String,
     required: true,
     unique: true,
   },
-  AdmissionYear: {
+  admission_year: {
     type: String,
     required: true,
   },
-  StudentCode: {
+  student_code: {
     type: String,
   },
-  Rollno: {
+  roll_no: {
     type: String,
   },
-  AdmissionStatus: {
-    type: String,
-    required: true,
-  },
-  AdmissionPattern: {
-    type: String,
-  },
-  Admissioncategory: {
+  admission_status: {
     type: String,
     required: true,
   },
-  SeatDesc: {
+  admission_pattern: {
     type: String,
   },
-  QuotaType: {
-    type: String,
-    required: true,
-  },
-  QuotaType: {
+  admission_category: {
     type: String,
     required: true,
   },
-  Boarder: {
+  seat_desc: {
+    type: String,
+  },
+  quota_type: {
+    type: String,
+    required: true,
+  },
+  is_boarder_student: {
     type: Boolean,
   },
-  Seattype: {
+  seat_type: {
     type: String,
     required: true,
   },
-  Seatsubtype: {
+  seat_sub_type: {
     type: String,
     required: true,
   },
-  EligibilityNo: {
+  eligibility_no: {
     type: String,
     required: true,
   },
-  EnrollmentNo: {
+  enrollment_no: {
     type: String,
     required: true,
     unique: true,
   },
 };
 
-const studentcollegeCollege = new connector.model(
-  "StudentCollegeSchema",
+const studenCollege = new connector.model(
+  "Student college",
   StudentCollegeSchema
 );
 
