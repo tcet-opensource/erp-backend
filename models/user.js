@@ -1,62 +1,62 @@
-const {connector} = require('./databaseUtil');
+import connector from "#models/databaseUtil";
 
 const userSchema = {
-  name: {type: String,   required: true},
-  emailId: {type: String, unique: true, required: true},
-  password: {type: String,   required: true},
-  uid: {type: String, unique: true, required: true},
-  userType: {type: String,   required: true} 
-}
+  name: { type: String, required: true },
+  emailId: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  uid: { type: String, unique: true, required: true },
+  userType: { type: String, required: true },
+};
 
-const User = new connector.model('User', userSchema);
- 
-async function createUser(name, password, emailId, uid, userType){
+const User = connector.model("User", userSchema);
+
+async function createUser(name, password, emailId, uid, userType) {
   const user = new User({
-    name: name, 
-    password:password,
-    emailId: emailId,
-    uid: uid,
-    userType: userType
+    name,
+    password,
+    emailId,
+    uid,
+    userType,
   });
   let newUser = {};
   await user.save().then((savedUser) => {
-    newUser = savedUser ;
+    newUser = savedUser;
   })
-  .catch(err=>newUser.err=err);
+    .catch((err) => { newUser.err = err; });
   return newUser;
 }
 
-async function validateUser(uid, pass){
-  let user = await User.findOne({uid: uid}).catch(err=>console.log(err))
-  if(user){
-    if(user.password==pass)
-      return user
+async function validateUser(uid, pass) {
+  const user = await User.findOne({ uid }).catch((err) => console.log(err));
+  if (user) {
+    if (user.password === pass) return user;
     return null;
   }
   return null;
 }
 
-async function checkUser(uid, emailId){
-  let user = await User.findOne({uid: uid, emailId:emailId}).catch(err=>console.log(err))
-  if(user)
-  	return true
-  else
-  	return false
+async function checkUser(uid, emailId) {
+  const user = await User.findOne({ uid, emailId }).catch((err) => console.log(err));
+  if (user) return true;
+  return false;
 }
 
-async function updatePassword(uid, password){
-  let user = await User.findOne({uid:uid}).catch(err=>console.log(err))
-  if(user){
-  	user.password = password;
-  	let userUpdated = await user.save().then(res=>true).catch(err=>{console.log(err);return false})
-  	return userUpdated;
-  	}
-  	return false;
+async function updatePassword(uid, password) {
+  const user = await User.findOne({ uid }).catch((err) => console.log(err));
+  if (user) {
+    user.password = password;
+    const userUpdated = await user.save();
+    if (userUpdated) return true;
+    return false;
+  }
+  return false;
 }
 
-async function deleteUser(uid){
-  const res = await User.findOneAndDelete({uid: {$eq: uid}});
+async function deleteUser(uid) {
+  const res = await User.findOneAndDelete({ uid: { $eq: uid } });
   return res;
 }
 
-module.exports = {validateUser:validateUser, createUser:createUser, checkUser:checkUser, updatePassword:updatePassword, deleteUser:deleteUser}; 
+export default {
+  validateUser, createUser, checkUser, updatePassword, deleteUser,
+};

@@ -1,24 +1,28 @@
-const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+import express from "express";
+import path, {dirname} from "path";
+import logger from "morgan";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import { fileURLToPath } from 'url';
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const authRouter = require('./routes/auth');
+
+import indexRouter from "#routes/index";
+import usersRouter from "#routes/users";
+import authRouter from "#routes/auth";
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.use(cors());
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/auth', authRouter);
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 
-module.exports = app;
+export default app;

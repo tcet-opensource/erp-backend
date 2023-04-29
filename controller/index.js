@@ -1,3 +1,5 @@
-exports.home = function(req, res, next) {
-  res.render('index', { title: 'Express' });
+function home(req, res) {
+  res.render("index", { title: "Express" });
 }
+
+export default { home };

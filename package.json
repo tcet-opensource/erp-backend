@@ -2,6 +2,15 @@
   "name": "api",
   "version": "0.0.0",
   "private": true,
+  "type" : "module",
+  "imports": {
+    "#app": "./app.js",
+    "#util": "./util.js",
+    "#routes/*": "./routes/*.js",
+    "#models/*": "./models/*.js",
+    "#middleware/*": "./middleware/*.js",
+    "#controller/*": "./controller/*.js"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",

@@ -1,4 +1,4 @@
-const { connector } = require("../databaseUtil");
+import connector from "#models/databaseUtil";
 
 const studentCollegeSchema = {
   uid: {
@@ -56,9 +56,4 @@ const studentCollegeSchema = {
   },
 };
 
-const studenCollege = new connector.model(
-  "Student college",
-  StudentCollegeSchema
-);
-
-module.exports = {};
+const studenCollege = connector.model("Student college", studentCollegeSchema);

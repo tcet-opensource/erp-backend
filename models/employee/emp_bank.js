@@ -1,4 +1,4 @@
-const { connector } = require("../databaseUtil");
+import connector from "#models/databaseUtil";
 
 const employeeBankSchema = {
   uid: {
@@ -37,5 +37,4 @@ const employeeBankSchema = {
   },
 };
 
-const empBank = new connector.model("Employee bank", employeeBankSchema);
-module.exports = {};
+const empBank = connector.model("Employee bank", employeeBankSchema);
