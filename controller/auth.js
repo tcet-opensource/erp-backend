@@ -15,10 +15,10 @@ async function login(req, res) {
     };
     const token = util.genrateToken(userDetails);
     userDetails.token = token;
-    res.send({ res: "welcome", user: userDetails });
+    res.json({ res: "welcome", user: userDetails });
   } else {
     res.status(403);
-    res.send({ err: "incorrect ID password" });
+    res.json({ err: "incorrect ID password" });
   }
 }
 
@@ -33,9 +33,9 @@ async function sendOTP(req, res) {
     const otp = Math.floor(1000 + Math.random() * 9000);
     otpStore[uid] = otp;
     util.sendOTP(emailId, otp);
-    res.send({ res: "otp sent to emailID" });
+    res.json({ res: "otp sent to emailID" });
   } else {
-    res.send({ err: "incorrect UID or emailId" });
+    res.json({ err: "incorrect UID or emailId" });
   }
 }
 
@@ -43,10 +43,10 @@ async function resetPassword(req, res) {
   const { uid, otp, password } = req.body;
   if (otpStore[uid] === otp) {
     const passwordUpdated = await user.updatePassword(uid, password);
-    if (passwordUpdated) res.send({ res: "successfully updated password" });
-    else res.send({ err: "Something went wrong while updating password" });
+    if (passwordUpdated) res.json({ res: "successfully updated password" });
+    else res.json({ err: "Something went wrong while updating password" });
   } else {
-    res.send({ err: "incorrect otp" });
+    res.json({ err: "incorrect otp" });
   }
 }
 
