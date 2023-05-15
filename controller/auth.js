@@ -42,7 +42,7 @@ async function sendOTP(req, res) {
 async function resetPassword(req, res) {
   const { uid, otp, password } = req.body;
   if (otpStore[uid] === otp) {
-    const passwordUpdated = await user.updatePassword(uid, password);
+    const passwordUpdated = await user.update({"uid": uid}, {"password": password});
     if (passwordUpdated) res.json({ res: "successfully updated password" });
     else res.json({ err: "Something went wrong while updating password" });
   } else {

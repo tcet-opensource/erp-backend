@@ -13,7 +13,7 @@ beforeAll((done) => {
 });
 
 function cleanUp(callback) {
-  userModel.deleteUser("S1032190220").then(() => {
+  userModel.remove({uid: "S1032190220"}).then(() => {
     connector.disconnect((DBerr) => {
       if (DBerr) console.log("Database dissconnnect error: ", DBerr);
       server.close((serverErr) => {
@@ -42,7 +42,7 @@ describe("checking user functions", () => {
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toBe(200);
     expect(response.body.res).toMatch(/added user/);
-    await userModel.deleteUser("S1032190220");
+    await userModel.remove({uid: "S1032190220"});
   });
 });
 
@@ -58,7 +58,7 @@ describe("checking auth functions", () => {
   });
 
   afterEach(async () => {
-    await userModel.deleteUser("S1032190220");
+    await userModel.remove({uid: "S1032190220"});
   });
 
   it("login", async () => {
