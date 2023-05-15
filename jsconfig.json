@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "baseUrl": "./",
+        "paths": {
+            "#app": ["./app.js"],
+            "#util": ["./util.js"],
+            "#routes/*": ["./routes/*.js"],
+            "#models/*": ["./models/*.js"],
+            "#middleware/*": ["./middleware/*.js"],
+            "#controller/*": ["./controller/*.js"],
+            "#error/*": ["./error/*.js"]
+        }
+    }
+}
