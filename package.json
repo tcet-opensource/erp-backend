@@ -9,7 +9,8 @@
     "#routes/*": "./routes/*.js",
     "#models/*": "./models/*.js",
     "#middleware/*": "./middleware/*.js",
-    "#controller/*": "./controller/*.js"
+    "#controller/*": "./controller/*.js",
+    "#error/*": "./error/*.js"
   },
   "scripts": {
     "start": "node ./bin/www",
