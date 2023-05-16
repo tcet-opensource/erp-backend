@@ -10,6 +10,7 @@
     "#models/*": "./models/*.js",
     "#middleware/*": "./middleware/*.js",
     "#controller/*": "./controller/*.js",
+    "#services/*": "./services/*.js",
     "#error/*": "./error/*.js"
   },
   "scripts": {

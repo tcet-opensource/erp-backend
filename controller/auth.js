@@ -1,12 +1,12 @@
 import util from "#util";
-import user from "#models/user";
+import { authenticateUser, userExists } from "#services/user";
 
 const otpStore = {};
 
 async function login(req, res) {
   const { id, password } = req.body;
-  const userValidated = await user.validateUser(id, password);
-  if (userValidated) {
+  try{
+    const userValidated = await authenticateUser(id, password);
     const userDetails = {
       uid: userValidated.uid,
       name: userValidated.name,
@@ -16,9 +16,16 @@ async function login(req, res) {
     const token = util.genrateToken(userDetails);
     userDetails.token = token;
     res.json({ res: "welcome", user: userDetails });
-  } else {
-    res.status(403);
-    res.json({ err: "incorrect ID password" });
+  }
+  catch(error){
+    if(error.name === "UserDoesNotExist"){
+      res.status(403);
+      res.json({err: "Incorrect ID password"})  
+    }
+    else{
+      res.status(500);
+      res.json({err: "Something is wrong on our side. Try again"});
+    }
   }
 }
 
@@ -28,8 +35,7 @@ function validateUser(req, res) {
 
 async function sendOTP(req, res) {
   const { uid, emailId } = req.body;
-  const userExists = await user.checkUser(uid, emailId);
-  if (userExists) {
+  if (await userExists(uid, emailId)) {
     const otp = Math.floor(1000 + Math.random() * 9000);
     otpStore[uid] = otp;
     util.sendOTP(emailId, otp);
@@ -42,9 +48,17 @@ async function sendOTP(req, res) {
 async function resetPassword(req, res) {
   const { uid, otp, password } = req.body;
   if (otpStore[uid] === otp) {
-    const passwordUpdated = await user.update({"uid": uid}, {"password": password});
-    if (passwordUpdated) res.json({ res: "successfully updated password" });
-    else res.json({ err: "Something went wrong while updating password" });
+    try{
+      await updatePassword(uid, password);
+      res.json({ res: "successfully updated password" });
+    }
+    catch(error){
+      res.status(500);
+      if(error.name === "UpdateError")
+        res.json({ err: "Something went wrong while updating password" });
+      else
+        res.json({err: "something went wrong"});
+    }
   } else {
     res.json({ err: "incorrect otp" });
   }

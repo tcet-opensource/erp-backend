@@ -1,16 +1,21 @@
 import user from "#models/user";
+import { allUsers, createUser } from "#services/user";
 
 async function addUser(req, res) {
   const {
     name, password, emailId, uid, userType,
   } = req.body;
-  const newUser = await user.create(name, password, emailId, uid, userType);
-  if (newUser.id != null) res.json({ res: `added user ${newUser.id}` });
-  else res.json({ err: "Error while inserting in DB" });
+  try{
+    let newUser = await createUser(name, password, emailId, uid, userType);
+    res.json({ res: `added user ${newUser.id}` });
+  }
+  catch(error){
+    res.json({ err: "Error while inserting in DB" });
+  } 
 }
 
 async function getAllUser(req, res){
-  const allUser = await user.read({}, 0);
+  const allUser = await allUsers();
   res.json(allUser);
 } 
 
