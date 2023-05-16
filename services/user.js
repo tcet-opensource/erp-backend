@@ -24,7 +24,7 @@ export async function updatePassword(uid, password){
 }
 
 export async function allUsers(){
-    const allUser = await user.read({}, 0);
+    const allUser = await User.read({}, 0);
     return allUser;
 }
 

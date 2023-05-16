@@ -16,7 +16,7 @@ async function addUser(req, res) {
 
 async function getAllUser(req, res){
   const allUser = await allUsers();
-  res.json(allUser);
+  res.json({res: allUser});
 } 
 
 export default { addUser, getAllUser };
