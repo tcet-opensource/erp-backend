@@ -10,8 +10,8 @@ export async function authenticateUser(uid, password){
 }
 
 export async function userExists(uid, email){
-    let user = await User.read({uid: uid, emailID: email});
-    if(user.uid === uid)
+    let user = await User.read({uid: uid, emailId: email}, 1);
+    if(user[0].uid === uid)
         return true;
     return false;
 }

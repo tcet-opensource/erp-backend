@@ -1,5 +1,5 @@
 import util from "#util";
-import { authenticateUser, userExists } from "#services/user";
+import { authenticateUser, userExists, updatePassword } from "#services/user";
 
 const otpStore = {};
 

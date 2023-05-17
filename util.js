@@ -22,7 +22,6 @@ const sendOTP = async (to, otp) => {
     subject: "OTP verification for TCET ERP system",
     text: `OTP for ERP system is ${otp}.`,
   });
-  console.log(info.messageId);
 };
 
 /**
