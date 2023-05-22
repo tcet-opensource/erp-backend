@@ -1,19 +1,25 @@
 import request from "supertest";
-import app from "../../app";
-import userModel from "../../models/user";
-import connector from "../../models/databaseUtil";
+import { jest } from '@jest/globals'
+import util from "#util";
+import app from "#app";
+import userModel from "#models/user";
+import connector from "#models/databaseUtil";
+import { response } from "express";
+
+jest.mock("#util")
 
 let server;
 let agent;
 beforeAll((done) => {
   server = app.listen(3500, () => {
     agent = request.agent(server);
+    connector.set("debug", false)
     done();
   });
 });
 
 function cleanUp(callback) {
-  userModel.remove({uid: "S1032190220"}).then(() => {
+  userModel.remove({ uid: "S1032190220" }).then(() => {
     connector.disconnect((DBerr) => {
       if (DBerr) console.log("Database dissconnnect error: ", DBerr);
       server.close((serverErr) => {
@@ -42,7 +48,7 @@ describe("checking user functions", () => {
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toBe(200);
     expect(response.body.res).toMatch(/added user/);
-    await userModel.remove({uid: "S1032190220"});
+    await userModel.remove({ uid: "S1032190220" });
   });
 });
 
@@ -58,7 +64,7 @@ describe("checking auth functions", () => {
   });
 
   afterEach(async () => {
-    await userModel.remove({uid: "S1032190220"});
+    await userModel.remove({ uid: "S1032190220" });
   });
 
   it("login", async () => {
@@ -86,30 +92,36 @@ describe("checking auth functions", () => {
     expect(response.status).toBe(200);
   });
 
-  // TODO: check if password resetting works
-  // mock is not getting called
-  // it("test password resetting", async ()=>{
-  //     const {sendOTP} = require('../../util');
-  //     let otpStore;
-
-  //     jest.mock("../../util", () => {
-  //         const original = jest.requireActual("../../util");
-  //         return {
-  //             ...original,
-  //             sendOTP: jest.fn()
-  //         };
-  //     });
-
-  //     // jest.mock("../../util");
-  //     // util.sendOTP = jest.fn((emailId, otp)=>console.log(otp))
-  //     sendOTP.mockImplementation((e, o) => {console.log(e, o);return { mockedValue: 2 };});
-  //     agent
-  //     .post("auth/sendOTP")
-  //     .send({
-  //         "uid": "S1032190220",
-  //         "emailId": "test@gmail.com"
-  //     });
-
-  //     console.log(otpStore);
-  // })
+  it("test forget password", async () => {
+    let genratedOtp;
+    jest.spyOn(util, 'sendOTP').mockImplementation((emailID, otp)=>{ genratedOtp = otp});
+    let response = await agent
+      .post("/auth/sendOTP")
+      .send({
+        "uid": "S1032190220",
+        "emailId": "test@gmail.com"
+      })
+    expect(response.status).toBe(200);
+    expect(response.body.res).toBe("otp sent to emailID");
+    let passwordUpdateResponse = await agent
+      .post("/auth/resetPassword")
+      .send({
+        "uid": "S1032190220",
+        "otp": genratedOtp,
+        "password": "pass"
+      });
+    expect(passwordUpdateResponse.status).toBe(200)
+    const token = await agent
+      .post("/auth")
+      .send({
+        id: "S1032190220",
+        password: "pass",
+      })
+      .then((response) => response.body.user.token);
+    const validateResponse = await agent
+      .post("/auth/validateUser")
+      .set("Authorization", `Bearer ${token}`);
+    expect(validateResponse.status).toBe(200);
+    jest.spyOn(util, 'sendOTP').mockRestore();
+  })
 });
