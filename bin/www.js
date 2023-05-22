@@ -6,7 +6,7 @@
 
 import http from "http";
 import debug from "debug";//("api:server");
-import app from "#app";
+import app, {logger} from "#app";
 import dotenv from "dotenv"
 dotenv.config();
 
@@ -59,11 +59,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
-      console.error(`${bind} requires elevated privileges`);
+      logger.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case "EADDRINUSE":
-      console.error(`${bind} is already in use`);
+      logger.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:

@@ -1,4 +1,5 @@
 import connector from "#models/databaseUtil";
+import { logger } from "#app";
 
 connector.set("debug", true);
 const userSchema = {
@@ -24,12 +25,12 @@ async function create(name, password, emailId, uid, userType){
     uid,
     userType,
   });
-  let userDoc = await user.save().catch(err=>{return err});
+  let userDoc = await user.save().catch(err=>{logger.error(err)});
   return userDoc;
 }
 
 async function read(filter, limit=1){
-  const userData = await User.find(filter).limit(limit).catch(err=>{console.log(err)});
+  const userData = await User.find(filter).limit(limit).catch(err=>{logger.error(err)});
   return userData;
 }
 
