@@ -11,15 +11,15 @@ import { fileURLToPath } from 'url';
 import indexRouter from "#routes/index";
 import usersRouter from "#routes/users";
 import authRouter from "#routes/auth";
+import { logLevel } from "#constant";
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
 export let logger = winston.createLogger({
     transports: [
         new winston.transports.File({
-            level: 'info',
+            level: logLevel[process.env.ENVIRONMENT] || 'info',
             filename: './logs/all-logs.log',
             handleExceptions: true,
             json: true,
@@ -34,7 +34,7 @@ export let logger = winston.createLogger({
             )
         }),
         new winston.transports.Console({
-            level: 'debug',
+            level: logLevel[process.env.ENVIRONMENT] || 'info',
             format: combine(
                 colorize({all:true}),
                 timestamp({

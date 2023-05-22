@@ -5,6 +5,7 @@
         "paths": {
             "#app": ["./app.js"],
             "#util": ["./util.js"],
+            "#constant": ["./constant.js"],
             "#routes/*": ["./routes/*.js"],
             "#models/*": ["./models/*.js"],
             "#middleware/*": ["./middleware/*.js"],
