@@ -1,7 +1,14 @@
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import { logLevel } from "#constant";
 
-import dotenv from "dotenv"
+import "winston-daily-rotate-file";
+import winston from "winston";
+const {
+  combine, timestamp, align, printf, colorize, json,
+} = winston.format;
+import dotenv from "dotenv";
+
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -48,4 +55,54 @@ const asyncPlaceholders = (data, time) => new Promise((resolve) => {
  * });
  */
 
-export default {genrateToken, sendOTP, asyncPlaceholders}
+
+const logFileTransport = new winston.transports.DailyRotateFile({
+  level: logLevel[process.env.ENVIRONMENT] || "info",
+  filename: `./logs/application-${process.env.ENVIRONMENT}-%DATE%.log`,
+  handleExceptions: true,
+  json: true,
+  colorize: false,
+  format: combine(
+    timestamp({
+      format: "DD-MM-YYYY hh:mm:ss.SSS A",
+    }),
+    json(),
+  ),
+  datePattern: "DD-MM-YYYY",
+  zippedArchive: true,
+  maxSize: "20m",
+  maxFiles: "30d",
+});
+
+export const logger = winston.createLogger({
+  transports: [
+    logFileTransport,
+    new winston.transports.Console({
+      level: logLevel[process.env.ENVIRONMENT] || "info",
+      format: combine(
+        colorize({ all: true }),
+        timestamp({
+          format: "YYYY-MM-DD hh:mm:ss.SSS A",
+        }),
+        align(),
+        printf((info) => `[${info.timestamp}] ${info.level}: ${info.message}`),
+      ),
+      handleExceptions: true,
+      json: false,
+      colorize: true,
+    }),
+  ],
+  exitOnError: false,
+});
+
+logger.stream = {
+  write(message) {
+    logger.info(message.trim());
+  },
+};
+
+
+
+
+
+export default { genrateToken, sendOTP, asyncPlaceholders, logger };
