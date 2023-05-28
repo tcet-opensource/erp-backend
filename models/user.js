@@ -25,19 +25,18 @@ async function create(name, password, emailId, uid, userType) {
     uid,
     userType,
   });
-  const userDoc = await user.save().catch((err) => { logger.error(err); });
+  const userDoc = await user.save();
   return userDoc;
 }
 
 async function read(filter, limit = 1) {
-  const userData = await User.find(filter).limit(limit).catch((err) => { logger.error(err); });
+  const userData = await User.find(filter).limit(limit);
   return userData;
 }
 
 async function update(filter, updateObject) {
   const user = await User.findOneAndUpdate(filter, updateObject, { new: true });
-  if (user.id) return user;
-  return "Error";
+  return user;
 }
 
 export default {

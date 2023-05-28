@@ -3,7 +3,7 @@ import databaseError from "#error/database";
 
 export async function authenticateUser(uid, password) {
   const user = await User.read({ uid, password }, 1);
-  if (user[0].uid === uid) {
+  if (user[0]?.uid === uid) {
     return user[0];
   }
   throw new databaseError.UserDoesNotExistError();
