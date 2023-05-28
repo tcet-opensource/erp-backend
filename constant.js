@@ -1,5 +1,5 @@
 export const logLevel = {
-    local: "silly",
-    dev: "debug",
-    prod: "info"
-}
+  local: "silly",
+  dev: "debug",
+  prod: "info",
+};

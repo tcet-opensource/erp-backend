@@ -17,7 +17,6 @@ module.exports = {
     quotes: ["error", "double"],
     "import/prefer-default-export": "off"
   },
-  // TODO: setup import export path resolver
   "settings": {
     "import/resolver": {
       "alias": {

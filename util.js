@@ -4,10 +4,11 @@ import { logLevel } from "#constant";
 
 import "winston-daily-rotate-file";
 import winston from "winston";
+import dotenv from "dotenv";
+
 const {
   combine, timestamp, align, printf, colorize, json,
 } = winston.format;
-import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ const transporter = nodemailer.createTransport({
 const genrateToken = (data) => jwt.sign(data, process.env.TOKEN_SECRET);
 
 const sendOTP = async (to, otp) => {
-  const info = await transporter.sendMail({
+  await transporter.sendMail({
     from: "erptcet@tcetmumbai.in",
     to,
     subject: "OTP verification for TCET ERP system",
@@ -54,7 +55,6 @@ const asyncPlaceholders = (data, time) => new Promise((resolve) => {
  *      console.log('running a task every minute');
  * });
  */
-
 
 const logFileTransport = new winston.transports.DailyRotateFile({
   level: logLevel[process.env.ENVIRONMENT] || "info",
@@ -101,8 +101,6 @@ logger.stream = {
   },
 };
 
-
-
-
-
-export default { genrateToken, sendOTP, asyncPlaceholders, logger };
+export default {
+  genrateToken, sendOTP, asyncPlaceholders, logger,
+};

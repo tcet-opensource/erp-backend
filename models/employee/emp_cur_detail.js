@@ -10,6 +10,7 @@ const employeeCurrentEmployementSchema = {
   current_ctc: { type: Number, required: true },
 };
 
+// eslint-disable-next-line  no-unused-vars
 const employeeCurrentEmployement = connector.model(
   "Employee current Employement",
   employeeCurrentEmployementSchema,

@@ -28,4 +28,6 @@ const employeeEducationHistorySchema = {
   phd: { type: Education },
   pdoc: { type: Education },
 };
+
+// eslint-disable-next-line  no-unused-vars
 const employeeEducationHistory = connector.model("Employee education history", employeeEducationHistorySchema);

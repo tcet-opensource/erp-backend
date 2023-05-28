@@ -1,6 +1,6 @@
 import express from "express";
-import {default as authController} from "#controller/auth";
-import {default as middleware} from "#middleware/auth";
+import authController from "#controller/auth";
+import middleware from "#middleware/auth";
 
 const router = express.Router();
 router.post("/", authController.login);

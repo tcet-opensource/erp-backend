@@ -37,4 +37,5 @@ const employeeBankSchema = {
   },
 };
 
+// eslint-disable-next-line  no-unused-vars
 const empBank = connector.model("Employee bank", employeeBankSchema);

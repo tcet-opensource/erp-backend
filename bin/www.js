@@ -5,9 +5,11 @@
  */
 
 import http from "http";
-import debug from "debug";//("api:server");
-import app, {logger} from "#app";
-import dotenv from "dotenv"
+import debug from "debug";// ("api:server");
+import dotenv from "dotenv";
+import app from "#app";
+import { logger } from "#util";
+
 dotenv.config();
 
 /**

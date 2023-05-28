@@ -54,4 +54,6 @@ const studentEducationSchema = {
     last_school_college_attended: { type: String, required: true },
   },
 };
+
+// eslint-disable-next-line  no-unused-vars
 const studentEducation = connector.model("Student education", studentEducationSchema);

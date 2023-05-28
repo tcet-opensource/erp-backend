@@ -1,19 +1,18 @@
 import request from "supertest";
-import { jest } from '@jest/globals'
+import { jest } from "@jest/globals"; // eslint-disable-line import/no-extraneous-dependencies
 import util from "#util";
 import app from "#app";
 import userModel from "#models/user";
 import connector from "#models/databaseUtil";
-import { response } from "express";
 
-jest.mock("#util")
+jest.mock("#util");
 
 let server;
 let agent;
 beforeAll((done) => {
   server = app.listen(3500, () => {
     agent = request.agent(server);
-    connector.set("debug", false)
+    connector.set("debug", false);
     done();
   });
 });
@@ -94,34 +93,34 @@ describe("checking auth functions", () => {
 
   it("test forget password", async () => {
     let genratedOtp;
-    jest.spyOn(util, 'sendOTP').mockImplementation((emailID, otp)=>{ genratedOtp = otp});
-    let response = await agent
+    jest.spyOn(util, "sendOTP").mockImplementation((emailID, otp) => { genratedOtp = otp; });
+    const response = await agent
       .post("/auth/sendOTP")
       .send({
-        "uid": "S1032190220",
-        "emailId": "test@gmail.com"
-      })
+        uid: "S1032190220",
+        emailId: "test@gmail.com",
+      });
     expect(response.status).toBe(200);
     expect(response.body.res).toBe("otp sent to emailID");
-    let passwordUpdateResponse = await agent
+    const passwordUpdateResponse = await agent
       .post("/auth/resetPassword")
       .send({
-        "uid": "S1032190220",
-        "otp": genratedOtp,
-        "password": "pass"
+        uid: "S1032190220",
+        otp: genratedOtp,
+        password: "pass",
       });
-    expect(passwordUpdateResponse.status).toBe(200)
+    expect(passwordUpdateResponse.status).toBe(200);
     const token = await agent
       .post("/auth")
       .send({
         id: "S1032190220",
         password: "pass",
       })
-      .then((response) => response.body.user.token);
+      .then((res) => res.body.user.token);
     const validateResponse = await agent
       .post("/auth/validateUser")
       .set("Authorization", `Bearer ${token}`);
     expect(validateResponse.status).toBe(200);
-    jest.spyOn(util, 'sendOTP').mockRestore();
-  })
+    jest.spyOn(util, "sendOTP").mockRestore();
+  });
 });

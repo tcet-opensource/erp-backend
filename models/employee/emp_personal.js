@@ -61,4 +61,5 @@ const employeePersonalSchema = {
   previousLastName: { type: String },
 };
 
+// eslint-disable-next-line  no-unused-vars
 const empPersonal = connector.model("Employee personal", employeePersonalSchema);

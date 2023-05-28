@@ -81,4 +81,5 @@ const studentPersonalSchema = {
   noOfDocumentsUploaded: { type: Number, required: true },
 };
 
+// eslint-disable-next-line  no-unused-vars
 const stdPersonal = connector.model("Student personal", studentPersonalSchema);

@@ -10,4 +10,6 @@ const studentMedicalSchema = {
   parents_contact: { type: Number, required: true },
   relative_contacts: { type: Number, required: true },
 };
+
+// eslint-disable-next-line  no-unused-vars
 const medicalHistory = connector.model("Student medical", studentMedicalSchema);

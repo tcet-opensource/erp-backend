@@ -1,5 +1,5 @@
 import connector from "#models/databaseUtil";
-import { logger } from "#app";
+import { logger } from "#util";
 
 connector.set("debug", true);
 const userSchema = {
@@ -17,7 +17,7 @@ async function remove(filter) {
   return res;
 }
 
-async function create(name, password, emailId, uid, userType){
+async function create(name, password, emailId, uid, userType) {
   const user = new User({
     name,
     password,
@@ -25,22 +25,21 @@ async function create(name, password, emailId, uid, userType){
     uid,
     userType,
   });
-  let userDoc = await user.save().catch(err=>{logger.error(err)});
+  const userDoc = await user.save().catch((err) => { logger.error(err); });
   return userDoc;
 }
 
-async function read(filter, limit=1){
-  const userData = await User.find(filter).limit(limit).catch(err=>{logger.error(err)});
+async function read(filter, limit = 1) {
+  const userData = await User.find(filter).limit(limit).catch((err) => { logger.error(err); });
   return userData;
 }
 
-async function update(filter, update){
-  let user = await User.findOneAndUpdate(filter, update, {new:true});
-  if(user.id)
-    return user;
+async function update(filter, updateObject) {
+  const user = await User.findOneAndUpdate(filter, updateObject, { new: true });
+  if (user.id) return user;
   return "Error";
 }
 
 export default {
-  create, read, update, remove
+  create, read, update, remove,
 };

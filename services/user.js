@@ -1,37 +1,35 @@
-import User from "#models/user"
-import { DataEntryError, UpdateError, UserDoesNotExist } from "#error/database";
+import User from "#models/user";
+import databaseError from "#error/database";
 
-export async function authenticateUser(uid, password){
-    let user = await User.read({uid: uid, password: password}, 1);
-    if(user[0].uid === uid){
-        return user[0];
-    }
-    throw new UserDoesNotExist();
+export async function authenticateUser(uid, password) {
+  const user = await User.read({ uid, password }, 1);
+  if (user[0].uid === uid) {
+    return user[0];
+  }
+  throw new databaseError.UserDoesNotExistError();
 }
 
-export async function userExists(uid, email){
-    let user = await User.read({uid: uid, emailId: email}, 1);
-    if(user[0].uid === uid)
-        return true;
-    return false;
+export async function userExists(uid, email) {
+  const user = await User.read({ uid, emailId: email }, 1);
+  if (user[0].uid === uid) return true;
+  return false;
 }
 
-export async function updatePassword(uid, password){
-    let user = await User.update({"uid": uid}, {"password": password});
-    if(user.uid === uid)
-        return user;
-    throw new UpdateError("User");
+export async function updatePassword(uid, password) {
+  const user = await User.update({ uid }, { password });
+  if (user.uid === uid) return user;
+  throw new databaseError.UpdateError("User");
 }
 
-export async function allUsers(){
-    const allUser = await User.read({}, 0);
-    return allUser;
+export async function allUsers() {
+  const allUser = await User.read({}, 0);
+  return allUser;
 }
 
-export async function createUser(name, password, emailId, uid, userType){
-    const newUser = await User.create(name, password, emailId, uid, userType);
-    if(newUser.uid === uid){
-        return newUser;
-    }
-    throw new DataEntryError("User");
+export async function createUser(name, password, emailId, uid, userType) {
+  const newUser = await User.create(name, password, emailId, uid, userType);
+  if (newUser.uid === uid) {
+    return newUser;
+  }
+  throw new databaseError.DataEntryError("User");
 }
