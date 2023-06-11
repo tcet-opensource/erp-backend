@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { logLevel } from "#constant";
-
+import crypto from "crypto"
 import "winston-daily-rotate-file";
 import winston from "winston";
 import dotenv from "dotenv";
@@ -21,7 +21,28 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const genrateToken = (data) => jwt.sign(data, process.env.TOKEN_SECRET);
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
+const algorithm = 'aes-256-cbc';
+
+const encrypt = (IP) => {
+    const cipher = crypto.createCipheriv(algorithm, key, iv);
+    let encrypted = cipher.update(IP, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    return encrypted;
+}
+
+const decrypt = (IP) => {
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+    let decrypted = decipher.update(IP, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
+}
+
+const generateToken = (data, IP)=>{
+  const encryptedIP = encrypt(IP);
+  return jwt.sign({data: data, ip: encryptedIP}, process.env.TOKEN_SECRET);
+}
 
 const sendOTP = async (to, otp) => {
   await transporter.sendMail({
@@ -102,5 +123,5 @@ logger.stream = {
 };
 
 export default {
-  genrateToken, sendOTP, asyncPlaceholders, logger,
+  generateToken, encrypt, decrypt, sendOTP, asyncPlaceholders, logger
 };

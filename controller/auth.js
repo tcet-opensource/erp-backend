@@ -13,7 +13,7 @@ async function login(req, res) {
       emailId: userValidated.emailId,
       type: userValidated.userType,
     };
-    const token = util.genrateToken(userDetails);
+    const token = util.generateToken(userDetails, req.ip);
     userDetails.token = token;
     res.json({ res: "welcome", user: userDetails });
   } catch (error) {
