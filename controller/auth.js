@@ -1,4 +1,4 @@
-const { genrateToken, sendOTP } = require('../util');
+const { generateToken, sendOTP } = require('../util');
 const user = require('../models/user');
 
 otpStore = {}
@@ -13,7 +13,7 @@ exports.login = async function(req, res, next) {
 		"emailId":userValidated.emailId,
 		"type": userValidated.userType,
 		}
-		let token = genrateToken(userDetails);
+		let token = generateToken(userDetails, req.ip);
 		userDetails["token"] = token;
 		res.send({res:"welcome", user:userDetails})
 	}
@@ -36,7 +36,7 @@ exports.sendOTP = async function(req, res, next){
   	sendOTP(emailId, otp);
   	res.send({res:"otp sent to emailID"})
   }
-  else{  
+  else{
     res.send({err:"incorrect UID or emailId"})
   }
 }

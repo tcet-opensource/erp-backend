@@ -1,17 +1,25 @@
 const jwt = require('jsonwebtoken');
+const { decrypt } = require('../util')
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if (token == null) return res.sendStatus(401);
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
 
-    if (err) return res.sendStatus(403);
+  try {
+    const payload = jwt.verify(token, process.env.TOKEN_SECRET);
+    const decryptedIP = decrypt(payload.ip);
+    if (decryptedIP !== req.ip) {
+      res.status(403)
+      res.send({err:"Unauthorized"});
+    }
 
-    req.user = user;
-
+    req.user = payload.data;
     next();
-  })
+  } catch (error) {
+    res.status(403)
+    res.send({err:"Unauthorized"});
+  }
 }
 
 module.exports = authenticateToken;
