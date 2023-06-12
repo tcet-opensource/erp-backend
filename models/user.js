@@ -1,57 +1,44 @@
-const {connector} = require('./databaseUtil');
+import connector from "#models/databaseUtil";
+import { logger } from "#util";
 
+connector.set("debug", true);
 const userSchema = {
-  name: {type: String,   required: true},
-  emailId: {type: String, unique: true, required: true},
-  password: {type: String,   required: true},
-  uid: {type: String, unique: true, required: true},
-  userType: {type: String,   required: true} 
+  name: { type: String, required: true },
+  emailId: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  uid: { type: String, unique: true, required: true },
+  userType: { type: String, required: true },
+};
+
+const User = connector.model("User", userSchema);
+
+async function remove(filter) {
+  const res = await User.findOneAndDelete(filter);
+  return res;
 }
 
-const User = new connector.model('User', userSchema);
- 
-async function createUser(name, password, emailId, uid, userType){
+async function create(name, password, emailId, uid, userType) {
   const user = new User({
-    name: name, 
-    password:password,
-    emailId: emailId,
-    uid: uid,
-    userType: userType
+    name,
+    password,
+    emailId,
+    uid,
+    userType,
   });
-  let newUser = {};
-  await user.save().then((savedUser) => {
-    newUser = savedUser ;
-  })
-  .catch(err=>newUser.err=err);
-  return newUser;
+  const userDoc = await user.save();
+  return userDoc;
 }
 
-async function validateUser(uid, pass){
-  let user = await User.findOne({uid: uid}).catch(err=>console.log(err))
-  if(user){
-    if(user.password==pass)
-      return user
-    return null;
-  }
-  return null;
+async function read(filter, limit = 1) {
+  const userData = await User.find(filter).limit(limit);
+  return userData;
 }
 
-async function checkUser(uid, emailId){
-  let user = await User.findOne({uid: uid, emailId:emailId}).catch(err=>console.log(err))
-  if(user)
-  	return true
-  else
-  	return false
+async function update(filter, updateObject) {
+  const user = await User.findOneAndUpdate(filter, updateObject, { new: true });
+  return user;
 }
 
-async function updatePassword(uid, password){
-  let user = await User.findOne({uid:uid}).catch(err=>console.log(err))
-  if(user){
-  	user.password = password;
-  	let userUpdated = await user.save().then(res=>true).catch(err=>{console.log(err);return false})
-  	return userUpdated;
-  	}
-  	return false;
-}
-
-module.exports = {validateUser:validateUser, createUser:createUser, checkUser:checkUser, updatePassword:updatePassword}; 
+export default {
+  create, read, update, remove,
+};

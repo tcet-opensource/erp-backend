@@ -1,9 +1,9 @@
-const express = require('express');
-const authenticateToken = require('../middleware/auth');
-const { asyncPlaceholders } = require('../util');
+import express from "express";
+import userController from "#controller/user";
+
 const router = express.Router();
-const userController = require('../controller/user');
 
-router.post("/add", userController.addUser)
+router.post("/add", userController.addUser);
+router.get("/getAllUser", userController.getAllUser);
 
-module.exports = router;
+export default router;
