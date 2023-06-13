@@ -19,8 +19,7 @@ const facultySchema = new mongoose.Schema({
     required: true,
   },
   preferredSubjects: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Subject',
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subject' }],
     required: true,
   },
   profileLink: {
