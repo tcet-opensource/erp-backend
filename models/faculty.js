@@ -19,7 +19,8 @@ const facultySchema = new mongoose.Schema({
     required: true,
   },
   preferredSubjects: {
-    type: [String],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Subject',
     required: true,
   },
   profileLink: {
