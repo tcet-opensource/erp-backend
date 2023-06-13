@@ -57,4 +57,4 @@ const studentCollegeSchema = {
 };
 
 // eslint-disable-next-line  no-unused-vars
-const studenCollege = connector.model("Student college", studentCollegeSchema);
+const studentCollege = connector.model("Student college", studentCollegeSchema);
