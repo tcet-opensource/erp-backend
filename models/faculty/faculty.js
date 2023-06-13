@@ -1,6 +1,6 @@
 import connector from "#models/databaseUtil";
-import { subjects } from "#models/subjects";
-import { department } from "#models/department";
+import { subjectSchema } from "#models/subjects";
+import { departmentSchema } from "#models/department";
 
 const facultySchema = {
   emp_type: {
@@ -16,8 +16,13 @@ const facultySchema = {
     type: Date,
     required: true,
   },
-  // this will call subject model or subject schema in array format
-  preferred_subjects: [subjects],
+  preferred_subjects: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Subject",
+    }],
+    required: true,
+  },
   profile_link: {
     type: String, // URL
     required: true,
@@ -47,7 +52,33 @@ const facultySchema = {
     type: String,
     required: true,
   },
-  department: [department],
+  department: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Department",
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  phoneNumber: {
+    type: Number,
+    required: true,
+    maxlength: 10,
+  },
+  office: {
+    type: String,
+    required: true,
+  },
+  isTenured: {
+    type: Boolean,
+    default: false,
+  },
+  joinedDate: {
+    type: Date,
+    default: Date.now,
+  },
   facultyMetadata: {
     achievements: [{
       type: String,
