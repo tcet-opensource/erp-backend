@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { logLevel } from "#constant";
-import crypto from "crypto"
+import crypto from "crypto";
 import "winston-daily-rotate-file";
 import winston from "winston";
 import dotenv from "dotenv";

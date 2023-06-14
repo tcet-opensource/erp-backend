@@ -1,24 +1,27 @@
 import connector from "#models/databaseUtil";
-import { subjects } from "#models/subjects";
-import { department } from "#models/department";
-
+// import subject , department model
 const facultySchema = {
-  emp_type: {
+  empType: {
     type: String,
     required: true,
   },
-  emp_uid: {
+  empUid: {
     type: String,
     required: true,
     unique: true,
   },
-  date_of_joining: {
+  dateOfJoining: {
     type: Date,
+    default: Date.now,
+  },
+  preferredSubjects: {
+    type: [{
+      type: connector.Schema.Types.ObjectId,
+      ref: "Subject",
+    }],
     required: true,
   },
-  // this will call subject model or subject schema in array format
-  preferred_subjects: [subjects],
-  profile_link: {
+  profileLink: {
     type: String, // URL
     required: true,
   },
@@ -26,10 +29,11 @@ const facultySchema = {
     type: [String],
     required: true,
   },
-  nature_of_association: {
+  natureOfAssociation: {
     type: String,
+    required: true,
   },
-  uni_approval_status: {
+  uniApprovalStatus: {
     type: String,
     required: true,
   },
@@ -37,33 +41,40 @@ const facultySchema = {
     type: [String],
     required: true,
   },
-  total_experience: {
+  totalExperience: {
     years: {
       type: String,
       required: true,
     },
   },
-  additional_responsibilites: {
+  additionalResponsibilites: {
     type: String,
     required: true,
   },
-  department: [department],
-  facultyMetadata: {
-    achievements: [{
-      type: String,
-      required: true,
-    }],
-    area_of_specialization: [{
-      type: String,
-      required: true,
-    }],
-    papers_publishedPG: {
-      type: Number,
-    },
-    papers_publishedUG: {
-      type: Number,
-    },
+  department: {
+    type: connector.Schema.Types.ObjectId,
+    ref: "Department",
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  phoneNumber: {
+    type: Number,
+    required: true,
+    maxlength: 10,
+  },
+  office: {
+    type: String,
+    required: true,
+  },
+  isTenured: {
+    type: Boolean,
+    default: false,
   },
 };
+
 // eslint-disable-next-line  no-unused-vars
-const FacultyInformationSchema = connector.model("Faulty Schema", facultySchema);
+const FacultyInformationModel = connector.model("Faculty Schema", facultySchema);
