@@ -1,5 +1,4 @@
 import connector from "#models/databaseUtil";
-import { logger } from "#util";
 
 connector.set("debug", true);
 
@@ -34,6 +33,7 @@ const facultySchema = {
   },
   natureOfAssociation: {
     type: String,
+    required: true,
   },
   uniApprovalStatus: {
     type: String,
@@ -97,7 +97,7 @@ const facultySchema = {
 // eslint-disable-next-line  no-unused-vars
 const Faculty = new connector.model("Faculty", facultySchema);
 
-async function create(empType, empUid, dateOfJoining, preferredSubjects, profileLink, designation, natureOfAssociation, uniApprovalStatus, qualification, totalExperience, additionalResponsibilites, department, email, phoneNumber, office, isTenured, facultyMetadata) {
+async function create(empType, empUid, dateOfJoining, preferredSubjects, profileLink, designation, natureOfAssociation, uniApprovalStatus, qualification, totalExperience, additionalResponsibilites, department, email, phoneNumber, office, isTenured) {
   const faculty = new Faculty({
     empType,
     empUid,
@@ -115,14 +115,6 @@ async function create(empType, empUid, dateOfJoining, preferredSubjects, profile
     phoneNumber,
     office,
     isTenured,
-    facultyMetadata:
-    {
-      achievements: facultyMetadata.achievements,
-      area_of_specialization: facultyMetadata.area_of_specialization,
-      papers_publishedPG: facultyMetadata.papers_publishedPG,
-      papers_publishedUG: facultyMetadata.papers_publishedUG,
-    },
-
   });
   const facultyDoc = await facultyDoc.save();
   return facultyDoc;
