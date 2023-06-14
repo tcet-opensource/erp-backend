@@ -1,5 +1,4 @@
 import connector from "#models/databaseUtil";
-import { logger } from "#util";
 
 connector.set("debug", true);
 const userSchema = {
