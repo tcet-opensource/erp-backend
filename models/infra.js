@@ -1,6 +1,3 @@
-const subjectContent = new connector.model("subject content", subjectContentSchema);
-module.exports = {};
-
 const { connector } = require("./databaseUtil");
 
 const infrastructureSchema = {
