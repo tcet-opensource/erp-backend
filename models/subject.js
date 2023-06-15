@@ -24,4 +24,3 @@ const subjectcontentSchema = {
 }; 
 
 const subjectcontentModel = new connector.model("subjectcontent", subjectcontentSchema);
-module.export = {}
