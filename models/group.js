@@ -1,10 +1,8 @@
-const { connector } = require("./databaseUtil");
+const { connector } = require("#models/databaseUtil");
 
-const group = {
+const groupSchema = {
     groupName: { type: String, required: true },
-    student_ids: { type: [Number], required: true }, //array of number
+    studentIds: { type: [Number], required: true }, //array of number
 }
 
-const Group = new connector.model('group', group);
-
-module.exports = {}; //group
+const groupModel = new connector.model('group', groupSchema);
