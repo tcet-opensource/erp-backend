@@ -1,4 +1,4 @@
-const { connector } = require("./databaseUtil");
+const { connector } = require("#models/databaseUtil");
 
 const infrastructureSchema = {
     infraID: {type: Number, required: true},
@@ -9,5 +9,4 @@ const infrastructureSchema = {
     capacity: {type:Number, required: true}
 };
 
-const infrastructureModel = new connector.model("Infrastructure", infrastructureSchema);;
-module.exports = {};
+const infrastructureModel = new connector.model("Infrastructure", infrastructureSchema);
