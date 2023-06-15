@@ -18,7 +18,7 @@ const subjectcontentSchema = {
     modules: {type: [Module], required: true},
     reccTextbooks: {type: [String], required: true},
     refBooks: {type: [String], required: true},
-    evalScheme: {type: String[Number], required: true}, 
+    evalScheme: {type: [Number], required: true}, 
     maxMarks: {type: Number, required: true},
     practicals: {type: [Practical], required: true}
 }; 
