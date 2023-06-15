@@ -9,5 +9,4 @@ const moduleSchema = {
   cognitiveLevels: [{ type: String, required: true }],
 };
 
-const modules = new connector.model('Module', moduleSchema);
-export default modules;
+const moduleModel = new connector.model('Module', moduleSchema);
