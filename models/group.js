@@ -7,4 +7,4 @@ const group = {
 
 const Group = new connector.model('group', group);
 
-module.exports = {};
+module.exports = {}; //group
