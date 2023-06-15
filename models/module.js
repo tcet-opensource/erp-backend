@@ -97,7 +97,7 @@ const facultySchema = {
 // eslint-disable-next-line  no-unused-vars
 const Faculty = new connector.model("Faculty", facultySchema);
 
-async function create(empType, empUid, dateOfJoining, preferredSubjects, profileLink, designation, natureOfAssociation, uniApprovalStatus, qualification, totalExperience, additionalResponsibilites, department, email, phoneNumber, office, isTenured) {
+async function create(empType, empUid, dateOfJoining, preferredSubjects, profileLink, designation, natureOfAssociation, uniApprovalStatus, qualification, totalExperience, additionalResponsibilites, department, email, phoneNumber, office, isTenured, facultyMetadata) {
   const faculty = new Faculty({
     empType,
     empUid,
@@ -115,8 +115,14 @@ async function create(empType, empUid, dateOfJoining, preferredSubjects, profile
     phoneNumber,
     office,
     isTenured,
+    facultyMetadata: {
+      achievements: facultyMetadata.achievements,
+      areaOfSpecialization: facultyMetadata.areaOfSpecialization,
+      paperPublishedPG: facultyMetadata.papersPublishedPG,
+      paperPublishedUG: facultyMetadata.papersPublishedUG,
+    },
   });
-  const facultyDoc = await facultyDoc.save();
+  const facultyDoc = await faculty.save();
   return facultyDoc;
 }
 
@@ -126,12 +132,12 @@ async function remove(filter) {
 }
 
 async function read(filter, limit = 1) {
-  const facultyData = await facultyData.find(filter).limit(limit);
+  const facultyData = await Faculty.find(filter).limit(limit);
   return facultyData;
 }
 
 async function update(filter, updateObject) {
-  const faculty = await faculty.findOneAndUpdate(filter, updateObject, { new: true });
+  const faculty = await Faculty.findOneAndUpdate(filter, updateObject, { new: true });
   return faculty;
 }
 
@@ -139,7 +145,8 @@ export default {
   create, read, update, remove,
 };
 
-/* emp_type: "Professor",
+/*
+example: emp_type: "Professor",
 emp_uid: "123456",
 date_of_joining: new Date(),
 preferred_subjects: ["subjectId1", "subjectId2"],
