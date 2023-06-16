@@ -1,4 +1,4 @@
-const { connector } = require("#models/databaseUtil");
+import  connector from "#models/databaseUtil";
 
 const infrastructureSchema = {
     infraID: {type: Number, required: true},
