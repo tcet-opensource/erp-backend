@@ -1,7 +1,7 @@
 import connector from '#models/databaseUtil';
 
 const moduleSchema = {
-  modNo: { type: Number, required: true },
+  moduleNo: { type: Number, required: true },
   moduleName: { type: String, required: true },
   moduleOutcome: { type: String, required: true },
   moduleContents: [{ type: String, required: true }],
