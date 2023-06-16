@@ -1,5 +1,4 @@
-const { connector } =
-import ("#models/databaseUtil");
+import connector from "#models/databaseUtil";
 
 const groupSchema = {
     groupName: { type: String, required: true },
