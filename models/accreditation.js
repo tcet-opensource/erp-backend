@@ -1,7 +1,5 @@
 import connector from "#models/databaseUtil";
-import { logger } from "#util";
 
-connector.set("debug", true);
 const accreditationSchema = {
     uid :{type : String, unique: true , required: true},
     accreditationName: {type: String,   required: true}, 
@@ -38,6 +36,7 @@ async function update(filter, updateObject) {
     const accreditation = await Accreditation.findOneAndUpdate(filter, updateObject, { new : true});
     return accreditation;
 }
+
 export default {
     create, read, update, remove
 };
