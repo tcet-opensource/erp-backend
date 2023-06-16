@@ -49,6 +49,13 @@ async function update(filter, updateObject) {
   });
   return module;
 }
+
+async function test() {
+  await create(1, 'Maths', 'abc', 'xyz', 5, 'abc');
+  const reading = await read({});
+  console.log(reading);
+}
+
 export default {
   create,
   read,
