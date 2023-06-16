@@ -1,5 +1,5 @@
 function home(req, res) {
-  res.render("index", { title: "Express" });
+  res.json({ res: "Server Working" });
 }
 
 export default { home };
