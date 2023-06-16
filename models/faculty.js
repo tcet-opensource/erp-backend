@@ -1,7 +1,5 @@
 import connector from "#models/databaseUtil";
 
-connector.set("debug", true);
-
 const facultySchema = {
   empType: {
     type: String,
@@ -94,10 +92,28 @@ const facultySchema = {
   },
 };
 
-// eslint-disable-next-line  no-unused-vars
+// eslint-disable-next-line  no-unused-vars, new-cap
 const Faculty = new connector.model("Faculty", facultySchema);
 
-async function create(empType, empUid, dateOfJoining, preferredSubjects, profileLink, designation, natureOfAssociation, uniApprovalStatus, qualification, totalExperience, additionalResponsibilites, department, email, phoneNumber, office, isTenured, facultyMetadata) {
+async function create(
+  empType,
+  empUid,
+  dateOfJoining,
+  preferredSubjects,
+  profileLink,
+  designation,
+  natureOfAssociation,
+  uniApprovalStatus,
+  qualification,
+  totalExperience,
+  additionalResponsibilites,
+  department,
+  email,
+  phoneNumber,
+  office,
+  isTenured,
+  facultyMetadata,
+) {
   const faculty = new Faculty({
     empType,
     empUid,
@@ -144,28 +160,3 @@ async function update(filter, updateObject) {
 export default {
   create, read, update, remove,
 };
-
-/*
-example: emp_type: "Professor",
-emp_uid: "123456",
-date_of_joining: new Date(),
-preferred_subjects: ["subjectId1", "subjectId2"],
-profile_link: "https://example.com/profile",
-designation: ["Associate Professor", "Researcher"],
-nature_of_association: "Permanent",
-uni_approval_status: "Approved",
-qualification: ["Ph.D.", "Masters"],
-total_experience: { years: "10" },
-additional_responsibilites: "Handling research projects",
-department: "departmentId",
-email: "faculty@example.com",
-phoneNumber: 1234567890,
-office: "Building A, Room 101",
-isTenured: true,
-joinedDate: new Date(),
-facultyMetadata: {
-  achievements: ["Award 1", "Award 2"],
-  area_of_specialization: ["Specialization 1", "Specialization 2"],
-  papers_publishedPG: 5,
-  papers_publishedUG: 10,
-*/
