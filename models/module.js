@@ -1,6 +1,6 @@
-import connector from "#models/databaseUtil";
+import connector from '#models/databaseUtil';
 
-connector.set("debug", true);
+connector.set('debug', true);
 const moduleSchema = {
   modNo: { type: Number, required: true },
   moduleName: { type: String, required: true },
@@ -10,7 +10,7 @@ const moduleSchema = {
   cognitiveLevels: [{ type: String, required: true }],
 };
 
-const moduleModel = new connector.model("Module", moduleSchema);
+const moduleModel = new connector.model('Module', moduleSchema);
 
 async function remove(filter) {
   const res = await moduleModel.findOneAndDelete(filter);
@@ -23,7 +23,7 @@ async function create(
   moduleOutcome,
   moduleContents,
   hrsPerModule,
-  cognitiveLevels,
+  cognitiveLevels
 ) {
   const module = new moduleModel({
     modNo,
@@ -50,7 +50,7 @@ async function update(filter, updateObject) {
 }
 
 async function test() {
-  await create(1, "Maths", "abc", "xyz", 5, "abc");
+  await create(1, 'Maths', 'abc', 'xyz', 5, 'abc');
   const reading = await read({});
   console.log(reading);
 }
