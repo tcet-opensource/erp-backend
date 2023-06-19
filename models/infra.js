@@ -15,9 +15,8 @@ async function remove(filter) {
   return res;
 }
 
-async function create(infraID, infraName, infraType, infraWing, floor, capacity) {
+async function create(infraName, infraType, infraWing, floor, capacity) {
   const infrastructure = new Infrastructure({
-    infraID,
     infraName,
     infraType,
     infraWing,
