@@ -14,14 +14,14 @@ All the dependencies used in this project will be listed in the `package.json` f
 
 To start working on this project first you need to create `.env` file. This .env file will contain:
 
-`PORT`   
+`PORT`
  You can set it on any port number you want.
 
 `TOKEN_SECRET` which you will get by running following line in terminal   
 ```
 node -e "console.log(require('crypto').randomBytes(256).toString('base64'));
 ```
-`ENVIRONMENT`  
+`ENVIRONMENT`
  Set this on 'local'    
 
 `DB_URL` 
