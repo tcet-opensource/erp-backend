@@ -12,15 +12,28 @@ All the dependencies used in this project will be listed in the `package.json` f
 
 ## Installation
 
-To start working on this project, follow the steps given above until you complete Step 4, then make a MongoDB Atlas database, get the connection URI, and save it as `DB_URL` in your `.env` file. Also, make sure to use
+To start working on this project first you need to create `.env` file. This .env file will contain:
+`PORT`
+ You can set it on any port number you want.
+`TOKEN_SECRET` which you will get by running following line in terminal
 ```
 node -e "console.log(require('crypto').randomBytes(256).toString('base64'));
 ```
- to generate a token secret that you will use for JWT authentication, save it as `TOKEN_SECRET` in your `.env` file.
+`ENVIRONMENT` 
+ Set this on 'local'
+`DB_URL` 
+ For this parameter you will need to open you account on MongoDB Atlas, don't forget to note down you account password, then create new cluster and through that you will get your connection string which will be your DB_URL in .env, make sure instead of "<password>" in connection string, you enter your own account password.
+`EMAIL_HOST`
+`EMAIL_PORT`
+`EMAIL_USER`
+`EMAIL_PASS`
+ For these above parameters first you need to open an account on any SMTP server, we use mailtrap, then start testing where you will see show credentials in which you will get all the values we need which are host, port, username and password.
 
- Once you are done with this, install the packages through `npm i` and run the server with `npm run serverstart` or `npm run serverstartWin` depending on your operating system.
+You don't need to assign values to these parameters in double or single quotes, just write directly, .env automatically converts it into quoted string.
 
-## Contributing
+Once you are done with this, install the packages through `npm ci` which stands for clean install and run the server with `npm run serverstart` or `npm run serverstartWin` depending on your operating system.
+
+## How to Contribute
 
 1. Choose an issue, bug, exploit, or feature to work on: Start by identifying an issue or feature in the repository that you would like to work on. If you can't find an existing issue or feature, you can create a new one.
 
