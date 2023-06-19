@@ -9,15 +9,15 @@ const infrastructureSchema = {
   capacity: { type: Number, required: true },
 };
 
-const InfrastructureModel = new connector.model("Infrastructure", infrastructureSchema);
+const Infrastructure = new connector.model("Infrastructure", infrastructureSchema);
 
 async function remove(filter) {
-  const res = await InfrastructureModel.findOneAndDelete(filter);
+  const res = await Infrastructure.findOneAndDelete(filter);
   return res;
 }
 
 async function create(infraID, infraName, infraType, infraWing, floor, capacity) {
-  const infrastructure = new InfrastructureModel({
+  const infrastructure = new Infrastructure({
     infraID,
     infraName,
     infraType,
@@ -30,12 +30,12 @@ async function create(infraID, infraName, infraType, infraWing, floor, capacity)
 }
 
 async function read(filter, limit = 1) {
-  const infrastructureData = await InfrastructureModel.find(filter).limit(limit);
+  const infrastructureData = await Infrastructure.find(filter).limit(limit);
   return infrastructureData;
 }
 
 async function update(filter, updateObject) {
-  const infrastructure = await InfrastructureModel.findOneAndUpdate(filter, updateObject, { new: true });
+  const infrastructure = await Infrastructure.findOneAndUpdate(filter, updateObject, { new: true });
   return infrastructure;
 }
 
