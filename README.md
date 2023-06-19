@@ -14,16 +14,16 @@ All the dependencies used in this project will be listed in the `package.json` f
 
 To start working on this project first you need to create `.env` file. This .env file will contain:
 
-`PORT`
+`PORT`   
  You can set it on any port number you want.
 
-`TOKEN_SECRET` which you will get by running following line in terminal
+`TOKEN_SECRET` which you will get by running following line in terminal   
 ```
 node -e "console.log(require('crypto').randomBytes(256).toString('base64'));
 ```
-`ENVIRONMENT` 
+`ENVIRONMENT`  
  Set this on 'local'    
- 
+
 `DB_URL` 
  For this parameter you will need to open you account on MongoDB Atlas, don't forget to note down you account password, then create new cluster and through that you will get your connection string which will be your DB_URL in .env, make sure instead of "password" in connection string, you enter your own account password.  
 
