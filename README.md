@@ -22,7 +22,7 @@ node -e "console.log(require('crypto').randomBytes(256).toString('base64'));
 `ENVIRONMENT` 
  Set this on 'local'
 `DB_URL` 
- For this parameter you will need to open you account on MongoDB Atlas, don't forget to note down you account password, then create new cluster and through that you will get your connection string which will be your DB_URL in .env, make sure instead of "<password>" in connection string, you enter your own account password.
+ For this parameter you will need to open you account on MongoDB Atlas, don't forget to note down you account password, then create new cluster and through that you will get your connection string which will be your DB_URL in .env, make sure instead of "password" in connection string, you enter your own account password.
 `EMAIL_HOST`
 `EMAIL_PORT`
 `EMAIL_USER`
