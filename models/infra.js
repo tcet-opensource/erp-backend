@@ -1,7 +1,6 @@
 import connector from "#models/databaseUtil";
 
 const infrastructureSchema = {
-  infraID: { type: Number, unique: true, required: true },
   infraName: { type: String, required: true },
   infraType: { type: String, required: true },
   infraWing: { type: String, required: true },
