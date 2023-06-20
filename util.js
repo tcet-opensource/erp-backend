@@ -5,7 +5,6 @@ import crypto from "crypto"
 import "winston-daily-rotate-file";
 import winston from "winston";
 import dotenv from "dotenv";
-//import user from "./models/user"
 import bcrypt from "bcrypt"
 const {
   combine, timestamp, align, printf, colorize, json,
@@ -32,8 +31,18 @@ export async function hashPassword(user) {
   return user.password
 }
 
- export async function comparePassword(password, hashedPassword) {
-  return bcrypt.compare(password, hashedPassword);
+export async function comparePasswords (userPassword,storedPassword) {
+  try {
+      bcrypt.compare(userPassword,storedPassword,(err,success)=>{
+          if(err) throw Error();
+          if(success){
+              return true;
+          }
+          else return false;
+      })
+  } catch (error) {
+      return error.message;
+  }
 }
 
 
