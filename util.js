@@ -5,7 +5,8 @@ import crypto from "crypto"
 import "winston-daily-rotate-file";
 import winston from "winston";
 import dotenv from "dotenv";
-
+//import user from "./models/user"
+import bcrypt from "bcrypt"
 const {
   combine, timestamp, align, printf, colorize, json,
 } = winston.format;
@@ -20,6 +21,21 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+
+
+
+export async function hashPassword(user) {
+  const saltRounds = 10;
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(user.password, saltRounds);
+  }
+  return user.password
+}
+
+ export async function comparePassword(password, hashedPassword) {
+  return bcrypt.compare(password, hashedPassword);
+}
+
 
 const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
