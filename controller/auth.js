@@ -1,7 +1,6 @@
+import OTPStore from "/models/OTPStore";
 import util, {logger} from "#util";
 import { authenticateUser, userExists, updatePassword } from "#services/user";
-
-const otpStore = {};
 
 async function login(req, res) {
   const { id, password } = req.body;
@@ -36,7 +35,7 @@ async function sendOTP(req, res) {
   const { uid, emailId } = req.body;
   if (await userExists(uid, emailId)) {
     const otp = Math.floor(1000 + Math.random() * 9000);
-    otpStore[uid] = otp;
+    await OTPStore.findOneAndUpdate({ uid }, { otp: otp }, { upsert: true });
     util.sendOTP(emailId, otp);
     res.json({ res: "otp sent to emailID" });
   } else {
@@ -46,20 +45,23 @@ async function sendOTP(req, res) {
 
 async function resetPassword(req, res) {
   const { uid, otp, password } = req.body;
-  if (otpStore[uid] === otp) {
-    try {
-      await updatePassword(uid, password);
-      res.json({ res: "successfully updated password" });
-    } catch (error) {
-      logger.log("Error while updating", error)
-      res.status(500);
-      if (error.name === "UpdateError") res.json({ err: "Something went wrong while updating password" });
-      else res.json({ err: "something went wrong" });
+  try{
+    const otpData=await OTPStore.find({uid});
+    if(otpData.otp ===otp ){
+      await updatePassword(uid,password)
+      res.json({res:"successfully updated password"})
     }
-  } else {
-    res.json({ err: "incorrect otp" });
+    else {
+      res.json({ err: "Incorrect OTP" });
+    }
+
+  }
+  catch(error){
+    console.log(error)
+    res.json({res:"Something is wrong"})
   }
 }
+  
 
 export default {
   validateUser, sendOTP, resetPassword, login,
