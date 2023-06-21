@@ -5,7 +5,7 @@ Briefly describe the changes made in this pull request.
 Specify the related issues or tickets that this pull request fixes (e.g., Fixes #123).
 
 ## Checklist
-<!-- add x inside brackets for ticking the checkbox eg. - [x] -->
+<!-- add x inside brackets for ticking the checkbox eg - [x] -->
 - [ ] Code follows project's style guidelines.
 - [ ] Changes are documented appropriately.
 
