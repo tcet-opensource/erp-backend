@@ -16,7 +16,7 @@ permissions:
         
 jobs:
   test:
-    name: Test files
+    name: Testing files
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
