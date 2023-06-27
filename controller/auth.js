@@ -1,7 +1,6 @@
+import OTPStore from "#models/otpStore";
 import util, {logger} from "#util";
 import { authenticateUser, userExists, updatePassword } from "#services/user";
-
-const otpStore = {};
 
 async function login(req, res) {
   const { id, password } = req.body;
@@ -36,7 +35,7 @@ async function sendOTP(req, res) {
   const { uid, emailId } = req.body;
   if (await userExists(uid, emailId)) {
     const otp = Math.floor(1000 + Math.random() * 9000);
-    otpStore[uid] = otp;
+    await OTPStore.update({uid: uid}, {otp: otp});
     util.sendOTP(emailId, otp);
     res.json({ res: "otp sent to emailID" });
   } else {
@@ -46,7 +45,8 @@ async function sendOTP(req, res) {
 
 async function resetPassword(req, res) {
   const { uid, otp, password } = req.body;
-  if (otpStore[uid] === otp) {
+  const storedOtp = await OTPStore.read({uid: uid});
+  if (storedOtp[0].otp === `${otp}`) {
     try {
       await updatePassword(uid, password);
       res.json({ res: "successfully updated password" });
@@ -60,6 +60,7 @@ async function resetPassword(req, res) {
     res.json({ err: "incorrect otp" });
   }
 }
+  
 
 export default {
   validateUser, sendOTP, resetPassword, login,
