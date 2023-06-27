@@ -5,6 +5,7 @@ import crypto from "crypto"
 import "winston-daily-rotate-file";
 import winston from "winston";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 
 const {
   combine, timestamp, align, printf, colorize, json,
@@ -52,6 +53,25 @@ const sendOTP = async (to, otp) => {
     text: `OTP for ERP system is ${otp}.`,
   });
 };
+
+export const hashPassword = async(password) =>{
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password,salt);
+        return hashedPassword;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+export const comparePasswords = async(userPassword,storedPassword) =>{
+    try {
+        const matched = await bcrypt.compare(userPassword,storedPassword);
+        return matched
+    } catch (error) {
+        return error.message;
+    }
+}
 
 /**
  *
@@ -123,5 +143,5 @@ logger.stream = {
 };
 
 export default {
-  generateToken, encrypt, decrypt, sendOTP, asyncPlaceholders, logger
+  generateToken, encrypt, decrypt, sendOTP, asyncPlaceholders, logger, hashPassword, comparePasswords,
 };
