@@ -1,10 +1,23 @@
-const user = require('../models/user');
+import { allUsers, createUser } from "#services/user";
+import { logger } from "#util";
 
-exports.addUser = async function(req, res, next){
-  const {name,password,emailId,uid,userType} = req.body;
-  let newUser = await user.createUser(name,password,emailId,uid,userType);
-  if(newUser.id!=null)
-  	res.send({"res":"added user "+newUser.id});
-  else
-  	res.send({err:newUser.err});
+async function addUser(req, res) {
+  const {
+    name, password, emailId, uid, userType,
+  } = req.body;
+  try {
+    const newUser = await createUser(name, password, emailId, uid, userType);
+    res.json({ res: `added user ${newUser.id}` });
+  } catch (error) {
+    logger.error("Error while inserting", error)
+    res.status(500)
+    res.json({ err: "Error while inserting in DB" });
+  }
 }
+
+async function getAllUser(req, res) {
+  const allUser = await allUsers();
+  res.json({ res: allUser });
+}
+
+export default { addUser, getAllUser };

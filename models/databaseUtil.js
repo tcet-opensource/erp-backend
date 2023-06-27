@@ -1,5 +1,8 @@
-const mongoose = require('mongoose');
-require("dotenv").config();
-mongoose.set('strictQuery', true);
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
+mongoose.set("strictQuery", false);
 mongoose.connect(`${process.env.DB_URL}`);
-module.exports = { connector:mongoose };
+const connector = mongoose;
+export default connector;

@@ -1,4 +1,4 @@
-const { connector } = require("./databaseUtil");
+import connector from "#models/databaseUtil";
 
 const studentBankSchema = {
   uid: {
@@ -34,5 +34,5 @@ const studentBankSchema = {
   },
 };
 
-const stdBank = new connector.model("Student bank", studentBankSchema);
-module.exports = {};
+// eslint-disable-next-line  no-unused-vars
+const stdBank = connector.model("Student bank", studentBankSchema);
