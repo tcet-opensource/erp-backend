@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import util, {logger} from "#util";
+import util from "#util";
 
 async function authenticateToken(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -9,15 +9,17 @@ async function authenticateToken(req, res, next) {
     const payload = jwt.verify(token, process.env.TOKEN_SECRET);
     const decryptedIP = util.decrypt(payload.ip);
     if (decryptedIP !== req.ip) {
-      res.status(403)
-      res.send({err:"Unauthorized"});
+      res.status(403);
+      res.send({ err: "Unauthorized" });
     }
 
     req.user = payload.data;
     next();
+    return true;
   } catch (error) {
-    res.status(403)
-    res.send({err:"Unauthorized"});
+    res.status(403);
+    res.send({ err: "Unauthorized" });
+    return false;
   }
 }
 

@@ -9,8 +9,8 @@ async function addUser(req, res) {
     const newUser = await createUser(name, password, emailId, uid, userType);
     res.json({ res: `added user ${newUser.id}` });
   } catch (error) {
-    logger.error("Error while inserting", error)
-    res.status(500)
+    logger.error("Error while inserting", error);
+    res.status(500);
     res.json({ err: "Error while inserting in DB" });
   }
 }

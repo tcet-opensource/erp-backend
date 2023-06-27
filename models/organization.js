@@ -11,4 +11,6 @@ const organizationSchema = {
   employees: [{ type: connector.Schema.Types.ObjectId, ref: "Faculty", required: "true" }],
 
 };
-const Organization = new connector.model("Organization", organizationSchema);
+
+// eslint-disable-next-line  no-unused-vars
+const Organization = connector.model("Organization", organizationSchema);

@@ -8,7 +8,7 @@ const accreditationSchema = {
   dateofExpiry: { type: Date, required: true },
 };
 
-const Accreditation = new connector.model("Accreditation", accreditationSchema);
+const Accreditation = connector.model("Accreditation", accreditationSchema);
 
 async function remove(filter) {
   const res = await Accreditation.findOneAndDelete(filter);
