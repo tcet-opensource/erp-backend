@@ -1,10 +1,10 @@
 import User from "#models/user";
 import databaseError from "#error/database";
-import { comparePasswords, hashPassword, logger } from "#util";
+import { comparePasswords, hashPassword } from "#util";
 
 export async function authenticateUser(uid, password) {
   const user = await User.read({ uid }, 1);
-  const passwordMatched = await comparePasswords(password, user[0]?.password); 
+  const passwordMatched = await comparePasswords(password, user[0]?.password);
   if (passwordMatched) {
     return user[0];
   }

@@ -2,10 +2,10 @@ import connector from "#models/databaseUtil";
 
 const otpStoreSchema = {
   uid: { type: String, unique: true, required: true },
-  otp: { type: String, unique: true, required: true }
-}
+  otp: { type: String, unique: true, required: true },
+};
 
-const OTPStore = connector.model("OTPStore", otpStoreSchema)
+const OTPStore = connector.model("OTPStore", otpStoreSchema);
 
 async function remove(filter) {
   const res = await OTPStore.findOneAndDelete(filter);
@@ -15,7 +15,7 @@ async function remove(filter) {
 async function create(uid, otp) {
   const otpStore = new OTPStore({
     uid,
-    otp
+    otp,
   });
   const otpDoc = await otpStore.save();
   return otpDoc;
@@ -31,8 +31,6 @@ async function update(filter, updateObject) {
   return otpDoc;
 }
 
-
 export default {
   create, read, update, remove,
 };
-
