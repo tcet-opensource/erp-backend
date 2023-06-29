@@ -1,9 +1,9 @@
 import connector from "#models/databaseUtil";
 
 const infrastructureSchema = {
-  Name: { type: String, required: true },
-  Type: { type: String, required: true },
-  Wing: { type: String, required: true },
+  name: { type: String, required: true },
+  type: { type: String, required: true },
+  wing: { type: String, required: true },
   floor: { type: Number, required: true },
   capacity: { type: Number, required: true },
 };
@@ -15,11 +15,11 @@ async function remove(filter) {
   return res;
 }
 
-async function create(Name, Type, Wing, floor, capacity) {
+async function create(name, type, wing, floor, capacity) {
   const infrastructure = new Infrastructure({
-    Name,
-    Type,
-    Wing,
+    name,
+    type,
+    wing,
     floor,
     capacity,
   });
