@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "eslintIgnore": ["_apidoc.js", "world.js"],
   "imports": {
     "#app": "./app.js",
     "#util": "./util.js",
