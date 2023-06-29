@@ -1,13 +1,13 @@
-const { connector } = require('./databaseUtil');
+const { connector } = require("./databaseUtil");
 
-const facultySchema = new mongoose.Schema({
+const facultySchema = {
   name: {
     type: String,
     required: true,
   },
   department: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Department',
+    type: connector.Schema.Types.ObjectId,
+    ref: "Department",
     required: true,
   },
   empType: {
@@ -19,7 +19,7 @@ const facultySchema = new mongoose.Schema({
     required: true,
   },
   preferredSubjects: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subject' }],
+    type: [{ type: connector.Schema.Types.ObjectId, ref: "Subject" }],
     required: true,
   },
   profileLink: {
@@ -87,8 +87,8 @@ const facultySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+};
 
-const Faculty = connector.model('Faculty', facultySchema);
+const Faculty = connector.model("Faculty", facultySchema);
 
 module.exports = Faculty;

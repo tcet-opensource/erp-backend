@@ -1,5 +1,4 @@
 import connector from "./databaseUtil";
-import Infrastructure from "./infrastructure";
 
 connector.set("debug", true);
 
@@ -7,7 +6,6 @@ const attendanceSchema = {
   date: { type: Date, required: true },
   time: { type: String, required: true },
   absentees: { type: Array },
-  class: Infrastructure,
 };
 
 const Attendance = connector.model("Attendance", attendanceSchema);
@@ -28,7 +26,11 @@ async function remove(filter) {
 }
 
 async function grantAttendance(roll, date) {
-  const res = await Attendance.findOneAndUpdate(date, {$pull: { absentees: roll } }, { new: true });
+  const res = await Attendance.findOneAndUpdate(
+    date,
+    { $pull: { absentees: roll } },
+    { new: true },
+  );
   return res;
 }
 

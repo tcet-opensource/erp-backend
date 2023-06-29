@@ -1,5 +1,5 @@
 import connector from "#models/databaseUtil";
-import { hashPassword, logger } from "#util";
+import { hashPassword } from "#util";
 
 connector.set("debug", true);
 const userSchema = {
@@ -17,8 +17,8 @@ async function remove(filter) {
   return res;
 }
 
-async function create(name, password, emailId, uid, userType) {
-  password = await hashPassword(password);
+async function create(name, pass, emailId, uid, userType) {
+  const password = await hashPassword(pass);
   const user = new User({
     name,
     password,

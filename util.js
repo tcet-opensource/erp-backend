@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { logLevel } from "#constant";
-import crypto from "crypto"
+import crypto from "crypto";
 import "winston-daily-rotate-file";
 import winston from "winston";
 import dotenv from "dotenv";
@@ -24,26 +24,26 @@ const transporter = nodemailer.createTransport({
 
 const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
-const algorithm = 'aes-256-cbc';
+const algorithm = "aes-256-cbc";
 
 const encrypt = (IP) => {
-    const cipher = crypto.createCipheriv(algorithm, key, iv);
-    let encrypted = cipher.update(IP, 'utf8', 'hex');
-    encrypted += cipher.final('hex');
-    return encrypted;
-}
+  const cipher = crypto.createCipheriv(algorithm, key, iv);
+  let encrypted = cipher.update(IP, "utf8", "hex");
+  encrypted += cipher.final("hex");
+  return encrypted;
+};
 
 const decrypt = (IP) => {
-    const decipher = crypto.createDecipheriv(algorithm, key, iv);
-    let decrypted = decipher.update(IP, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-    return decrypted;
-}
+  const decipher = crypto.createDecipheriv(algorithm, key, iv);
+  let decrypted = decipher.update(IP, "hex", "utf8");
+  decrypted += decipher.final("utf8");
+  return decrypted;
+};
 
-const generateToken = (data, IP)=>{
+const generateToken = (data, IP) => {
   const encryptedIP = encrypt(IP);
-  return jwt.sign({data: data, ip: encryptedIP}, process.env.TOKEN_SECRET);
-}
+  return jwt.sign({ data, ip: encryptedIP }, process.env.TOKEN_SECRET);
+};
 
 const sendOTP = async (to, otp) => {
   await transporter.sendMail({
@@ -54,24 +54,24 @@ const sendOTP = async (to, otp) => {
   });
 };
 
-export const hashPassword = async(password) =>{
-    try {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password,salt);
-        return hashedPassword;
-    } catch (error) {
-        return error.message;
-    }
-}
+export const hashPassword = async (password) => {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return hashedPassword;
+  } catch (error) {
+    return error.message;
+  }
+};
 
-export const comparePasswords = async(userPassword,storedPassword) =>{
-    try {
-        const matched = await bcrypt.compare(userPassword,storedPassword);
-        return matched
-    } catch (error) {
-        return error.message;
-    }
-}
+export const comparePasswords = async (userPassword, storedPassword) => {
+  try {
+    const matched = await bcrypt.compare(userPassword, storedPassword);
+    return matched;
+  } catch (error) {
+    return error.message;
+  }
+};
 
 /**
  *
@@ -143,5 +143,12 @@ logger.stream = {
 };
 
 export default {
-  generateToken, encrypt, decrypt, sendOTP, asyncPlaceholders, logger, hashPassword, comparePasswords,
+  generateToken,
+  encrypt,
+  decrypt,
+  sendOTP,
+  asyncPlaceholders,
+  logger,
+  hashPassword,
+  comparePasswords,
 };
