@@ -1,7 +1,6 @@
 import connector from "#models/databaseUtil";
 
 const accreditationSchema = {
-  uid: { type: String, unique: true, required: true },
   accreditationName: { type: String, required: true },
   agencyName: { type: String, required: true },
   dateofAccreditation: { type: Date, required: true },
@@ -15,11 +14,10 @@ async function remove(filter) {
   return res;
 }
 
-async function create(uid, accreditationName, agencyName, dateofAccreditation, dateofExpiry) {
+async function create(accreditationName, agencyName, dateofAccreditation, dateofExpiry) {
   const accreditation = new Accreditation({
     accreditationName,
     agencyName,
-    uid,
     dateofAccreditation,
     dateofExpiry,
   });
