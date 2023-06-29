@@ -1,15 +1,15 @@
-import connector from '#models/databaseUtil';
+import connector from "#models/databaseUtil";
 
 const moduleSchema = {
-  No: { type: Number, required: true },
-  Name: { type: String, required: true },
-  Outcome: { type: String, required: true },
-  Contents: [{ type: String, required: true }],
+  no: { type: Number, required: true },
+  name: { type: String, required: true },
+  outcome: { type: String, required: true },
+  contents: [{ type: String, required: true }],
   hrsPerModule: { type: Number, required: true },
   cognitiveLevels: [{ type: String, required: true }],
 };
 
-const Module = connector.model('Module', moduleSchema);
+const Module = connector.model("Module", moduleSchema);
 
 async function remove(filter) {
   const res = await Module.findOneAndDelete(filter);
@@ -17,18 +17,18 @@ async function remove(filter) {
 }
 
 async function create(
-  No,
-  Name,
-  Outcome,
-  Contents,
+  no,
+  name,
+  outcome,
+  contents,
   hrsPerModule,
-  cognitiveLevels
+  cognitiveLevels,
 ) {
   const module = new Module({
-    No,
-    Name,
-    Outcome,
-    Contents,
+    no,
+    name,
+    outcome,
+    contents,
     hrsPerModule,
     cognitiveLevels,
   });
