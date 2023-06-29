@@ -8,7 +8,7 @@ const infrastructureSchema = {
   capacity: { type: Number, required: true },
 };
 
-const Infrastructure = new connector.model("Infrastructure", infrastructureSchema);
+const Infrastructure = connector.model("Infrastructure", infrastructureSchema);
 
 async function remove(filter) {
   const res = await Infrastructure.findOneAndDelete(filter);
