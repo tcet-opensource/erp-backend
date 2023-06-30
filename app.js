@@ -16,7 +16,6 @@ app.use(morgan(
   ":remote-addr - :remote-user \":method :url HTTP/:http-version\" :status \":referrer\" \":user-agent\"",
   { stream: logger.stream },
 ));
-// app
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
