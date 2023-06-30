@@ -1,25 +1,23 @@
 import connector from "#models/databaseUtil";
 
 const accreditationSchema = {
-  uid: { type: String, unique: true, required: true },
-  accreditationName: { type: String, required: true },
+  name: { type: String, required: true },
   agencyName: { type: String, required: true },
   dateofAccreditation: { type: Date, required: true },
   dateofExpiry: { type: Date, required: true },
 };
 
-const Accreditation = new connector.model("Accreditation", accreditationSchema);
+const Accreditation = connector.model("Accreditation", accreditationSchema);
 
 async function remove(filter) {
   const res = await Accreditation.findOneAndDelete(filter);
   return res;
 }
 
-async function create(uid, accreditationName, agencyName, dateofAccreditation, dateofExpiry) {
+async function create(name, agencyName, dateofAccreditation, dateofExpiry) {
   const accreditation = new Accreditation({
-    accreditationName,
+    name,
     agencyName,
-    uid,
     dateofAccreditation,
     dateofExpiry,
   });

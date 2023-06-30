@@ -21,9 +21,12 @@
     "serverstartWin": "SET DEBUG=api:* && npm run devstart",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch",
-    "test:openHandels": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles"
+    "test:openHandels": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles",
+    "eslint": "eslint '**/*.js'"
   },
   "dependencies": {
+    "apidoc": "^1.0.3",
+    "bcrypt": "^5.1.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
