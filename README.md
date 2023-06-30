@@ -15,7 +15,7 @@ All the dependencies used in this project will be listed in the `package.json` f
 To start working on this project first you need to create `.env` file. This .env file will contain:
 
 `PORT`
- You can set it on any port number you want.
+ You can set it on any port number you want. `eg: 4000`
 
 `TOKEN_SECRET` which you will get by running following line in terminal   
 ```
@@ -25,18 +25,23 @@ node -e "console.log(require('crypto').randomBytes(256).toString('base64'));
  Set this on 'local'    
 
 `DB_URL` 
- For this parameter you will need to open you account on MongoDB Atlas, don't forget to note down you account password, then create new cluster and through that you will get your connection string which will be your DB_URL in .env, make sure instead of "password" in connection string, you enter your own account password.  
+ For this parameter you will need to open your account on MongoDB Atlas, don't forget to note down you account password, then create new cluster and through that you will get your connection string which will be your DB_URL in .env, make sure instead of "password" in connection string, you enter your own account password.
 
 `EMAIL_HOST`,
 `EMAIL_PORT`,
 `EMAIL_USER`,
 `EMAIL_PASS`   
 
- For these above parameters first you need to open an account on any SMTP server, we use mailtrap, then start testing where you will see show credentials in which you will get all the values we need which are host, port, username and password.   
+ For these above parameters, first you need to open an account on any SMTP server, we use mailtrap, then start testing where you will see show credentials in which you will get all the values we need which are host, port, username and password.   
 
 You don't need to assign values to these parameters in double or single quotes, just write directly, .env automatically converts it into quoted string.   
 
-Once you are done with this, install the packages through `npm ci` which stands for clean install and run the server with `npm run serverstart` or `npm run serverstartWin` depending on your operating system.
+Once you are done with this, install the packages through `npm ci` which stands for clean install.
+Also, you need to run 'setup.js' file. You can do that by running following command in your terminal
+```
+node setup.js
+```
+And finally, run the server with `npm run serverstart` or `npm run serverstartWin` depending on your operating system.
 
 ## How to Contribute
 
