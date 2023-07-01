@@ -1,4 +1,4 @@
-import { addNewAccreditation } from "#services/accreditation";
+import { addNewAccreditation, getAccreditation } from "#services/accreditation";
 import { logger } from "#util";
 
 async function addAccreditation(req, res) {
@@ -16,4 +16,15 @@ async function addAccreditation(req, res) {
   }
 }
 
-export default { addAccreditation };
+async function showAccreditation(req, res) {
+  try {
+    const accreditation = await getAccreditation(req.params.filter);
+    return res.json({ res: accreditation });
+  } catch (error) {
+    logger.error("Error while fetching", error);
+    res.status(500);
+    return res.json({ err: "Error while fetching the data" });
+  }
+}
+
+export default { addAccreditation, showAccreditation };
