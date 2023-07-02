@@ -1,15 +1,16 @@
 import connector from "#models/databaseUtil";
 
 const groupSchema = {
-  groupName: { type: String, required: true },
-  studentIds: { type: [Number], required: true },
+  title: { type: String, required: true },
+  students: [{ type: connector.Schema.Types.ObjectId, ref: "Student", required: true }]
 };
+
 
 const groupModel = connector.model("group", groupSchema);
 
-async function createGroup(groupData) {
+async function create(title,student) {
   try {
-    const newGroup = await groupModel.create(groupData);
+    const newGroup = await groupModel.create(title , student);
     return newGroup;
   } catch (error) {
     console.error("Error creating group:", error);
@@ -17,7 +18,7 @@ async function createGroup(groupData) {
   }
 }
 
-async function getGroupById(groupId) {
+async function read(groupId) {
   try {
     const group = await groupModel.findById(groupId);
     return group;
@@ -27,7 +28,7 @@ async function getGroupById(groupId) {
   }
 }
 
-async function updateGroup(groupId, updateData) {
+async function update(groupId, updateData) {
   try {
     const updatedGroup = await groupModel.findByIdAndUpdate(groupId, updateData, { new: true });
     return updatedGroup;
@@ -36,8 +37,7 @@ async function updateGroup(groupId, updateData) {
     return null;
   }
 }
-
-async function deleteGroup(groupId) {
+async function remove(groupId) {
   try {
     const deletedGroup = await groupModel.findByIdAndDelete(groupId);
     return deletedGroup;
@@ -47,9 +47,10 @@ async function deleteGroup(groupId) {
   }
 }
 
+
 export default {
-  createGroup,
-  getGroupById,
-  updateGroup,
-  deleteGroup,
+  create,
+  read,
+  update,
+  remove,
 };
