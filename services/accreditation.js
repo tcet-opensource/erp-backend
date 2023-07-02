@@ -15,7 +15,7 @@ export async function addNewAccreditation(name, agencyName, dateofAccreditation,
 }
 
 export async function getAccreditation(filter) {
-  const accreditation = await accreditationModel.read(filter);
+  const accreditation = await accreditationModel.read({ name: filter });
   if (accreditation) {
     return accreditation;
   }
