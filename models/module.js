@@ -6,7 +6,11 @@ const moduleSchema = {
   outcome: { type: String, required: true },
   contents: [{ type: String, required: true }],
   hrsPerModule: { type: Number, required: true },
-  cognitiveLevels: [{ type: String, required: true }],
+  cognitiveLevels: [{
+    type: String,
+    required: true,
+    enum: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'],
+}],
 };
 
 const Module = connector.model("Module", moduleSchema);
