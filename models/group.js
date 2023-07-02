@@ -2,7 +2,7 @@ import connector from "#models/databaseUtil";
 
 const groupSchema = {
   title: { type: String, required: true },
-  student: { type: connector.Schema.Types.ObjectId, ref: "Student", required: true }
+  students: [{ type: connector.Schema.Types.ObjectId, ref: "Student", required: true }]
 };
 
 
