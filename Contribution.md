@@ -40,34 +40,47 @@ Click **Make a contribution** at the bottom of erp-backend to make small changes
 
 ### Make changes locally
 
-1. for External Contributors , Fork the repository
+1. External Contributors , Fork the repository
 - Using GitHub Desktop:
   - [Getting started with GitHub Desktop](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/getting-started-with-github-desktop) will guide you through setting up Desktop.
   - Once Desktop is set up, you can use it to fork the repo
 - Using the command line:
   - [Fork the repo](https://github.com/tcet-opensource/erp-backend/fork), so that you can make your changes without affecting the original project until you're ready to merge them.
-- Clone the Repository for Internal Contributors 
+- After forking clone the forked repository 
+- Switch from main branch to development branch in your cloned repository
+  - To switch to development write command `git remote add upstream <link of original repo>` and `git fetch upstream` in the terminal 
+- To install node modules use command `npm ci` 
+- Switch to Development Branch and create a working branch for each issue.
+- To create a branch use command `git branch <name of the branch>`
+  - NOTE: The name of the branch should in the format of -> Issue number-name of the issue (eg: 50-create_CRUD_for_infra_model)
+- Then from the development branch move to the branch created by using command `git checkout <branch name>`
+- All changes on the code should be done on your specific branch
+- Test your changes: After making your changes, it is crucial to thoroughly test them to ensure they function as intended and do not introduce any new bugs. Run any relevant tests or simulations and verify that the modified code performs correctly.
+- Before pushing the changes sync fork in the forked repo and pull the changes before pushing 
+- After pushing go to the forked repository and press contribute and make a pull request
+
+2. Internal Contributors, Clone the Repository 
 &nbsp;
 `git clone -b development https://github.com/tcet-opensource/erp-backend.git`
-2. To install node modules use command `npm ci` 
-3. Switch to Development Branch and create a working branch for each issue.
-4. To create a branch use command `git branch <name of the branch>`
-5. NOTE: The name of the branch should in the format of -> Issue number-name of the issue (eg: 50-create_CRUD_for_infra_model)
-6. Then from the development branch move to the branch created by using command `git checkout <branch name>`
-7. All changes on the code should be done on your specific branch
-8. Test your changes: After making your changes, it is crucial to thoroughly test them to ensure they function as intended and do not introduce any new bugs. Run any relevant tests or simulations and verify that the modified code performs correctly.
+- To install node modules use command `npm ci` 
+- Switch to Development Branch and create a working branch for each issue.
+- To create a branch use command `git branch <name of the branch>`
+  - NOTE: The name of the branch should in the format of -> Issue number-name of the issue (eg: 50-create_CRUD_for_infra_model)
+- Then from the development branch move to the branch created by using command `git checkout <branch name>`
+- All changes on the code should be done on your specific branch
+- Test your changes: After making your changes, it is crucial to thoroughly test them to ensure they function as intended and do not introduce any new bugs. Run any relevant tests or simulations and verify that the modified code performs correctly.
 
 
-#### Commit your changes
-1. Stage your changes: Use the git add command to stage the modified files for the commit. This marks the changes as ready to be included in the next commit. 
+### Commit your changes
+- Stage your changes: Use the git add command to stage the modified files for the commit. This marks the changes as ready to be included in the next commit. 
 `git add <file1> <file2> ...` or `git add .`
-2. Commit your changes: Create a commit to record your modifications with a meaningful commit message. This helps in tracking and understanding the purpose of the changes.
+- Commit your changes: Create a commit to record your modifications with a meaningful commit message. This helps in tracking and understanding the purpose of the changes.
 `git commit -m "relevant info of the change"`
-3. Before pushing the changes on the repository always remember to pull the code to avoid any merge conflicts
+- Before pushing the changes on the repository always remember to pull the code to avoid any merge conflicts
 `git pull origin development`
-4. try pushing the code on the development branch and not directly to the main branch
+- try pushing the code on the development branch and not directly to the main branch
 
-#### Push your Changes
+### Push your Changes
 - After committing your changes, you push them to a remote repository (in this case, your forked repository on GitHub) using the git push command. Pushing your changes uploads them to the remote repository, making them visible to others and allowing you to share your work.
  `git push origin <branch name>`
 
