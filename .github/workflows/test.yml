@@ -1,0 +1,33 @@
+name: Testing Services
+
+on:
+    pull_request:
+        branches:
+            - main
+            - development
+
+
+env: 
+  TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+  DB_URL: ${{ secrets.DB_URL }}
+
+permissions:
+    contents: read
+        
+jobs:
+  test:
+    name: Testing files
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: npm
+      - name: Installation
+        run: npm ci
+      - name: Running Tests 
+        run: npm run test
