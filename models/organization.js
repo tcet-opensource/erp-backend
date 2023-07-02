@@ -7,7 +7,7 @@ const organizationSchema = {
   accreditation: { type: connector.Schema.Types.ObjectId, ref: "Accrediation", required: "true" },
 };
 
-// eslint-disable-next-line  no-unused-vars
+
 const Organization = connector.model("Organization", organizationSchema);
 
 async function remove(filter) {
