@@ -9,6 +9,7 @@ import indexRouter from "#routes/index";
 import usersRouter from "#routes/users";
 import authRouter from "#routes/auth";
 import accreditationRouter from "#routes/accreditation";
+import infrastructureRouter from "#routes/infrastructure";
 
 const app = express();
 const currDirName = dirname(fileURLToPath(import.meta.url));
@@ -28,5 +29,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/accreditation", accreditationRouter);
+app.use("/infrastructure", infrastructureRouter);
 
 export default app;
