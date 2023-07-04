@@ -59,25 +59,23 @@ const Course = connector.model('Course', courseSchema)
 
 async function create(courseData) {
   const course = new Course(courseData)
-  const createdCourse = await course.save()
-  return createdCourse
+  const courseDoc = await course.save()
+  return courseDoc;
 }
 
 async function read(filter, limit = 1) {
-  const courseData = await Course.find(filter).limit(limit)
-  return courseData
+  const courseDoc = await Course.find(filter).limit(limit)
+  return courseDoc;
 }
 
-async function update(filter, updateObject) {
-  const updatedCourse = await Course.findOneAndUpdate(filter, updateObject, {
-    new: true,
-  }).exec()
-  return updatedCourse
+async function update(filter, updateObject, options={multi:true}) {
+  const updateResult = await Course.updateMany(filter, {"$set": updateObject}, options);
+  return updateResult.acknowledged;
 }
 
 async function remove(filter) {
-  const deletedCourse = await Course.findOneAndDelete(filter).exec()
-  return deletedCourse
+  const deleteResult = await Course.deleteMany(filter).exec()
+  return deleteResult.acknowledged;
 }
 
 export default {

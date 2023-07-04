@@ -2,7 +2,7 @@ import connector from "#models/databaseUtil";
 
 const tutorialSchema = {
   no: { type: Number, required: true },
-  Title: { type: String, unique: true, required: true },
+  title: { type: String, unique: true, required: true },
   hours: { type: Number, required: true },
   cognitiveLevel:[{
     type:String,

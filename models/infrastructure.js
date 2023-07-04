@@ -11,30 +11,31 @@ const infrastructureSchema = {
 const Infrastructure = connector.model("Infrastructure", infrastructureSchema);
 
 async function remove(filter) {
-  const res = await Infrastructure.findOneAndDelete(filter);
-  return res;
+  const deleteResult = await Infrastructure.deleteMany(filter);
+  return deleteResult.acknowledged;
 }
 
-async function create(name, type, wing, floor, capacity) {
+async function create(infrastructureData) {
+  const {name, type, wing, floor, capacity} = infrastructureData;
   const infrastructure = new Infrastructure({
-    name,
-    type,
-    wing,
-    floor,
-    capacity,
+    name: name,
+    type: type,
+    wing: wing,
+    floor: floor,
+    capacity: capacity,
   });
   const infrastructureDoc = await infrastructure.save();
   return infrastructureDoc;
 }
 
 async function read(filter, limit = 1) {
-  const infrastructureData = await Infrastructure.find(filter).limit(limit);
-  return infrastructureData;
+  const infrastructureDoc = await Infrastructure.find(filter).limit(limit);
+  return infrastructureDoc;
 }
 
-async function update(filter, updateObject) {
-  const infrastructure = await Infrastructure.findOneAndUpdate(filter, updateObject, { new: true });
-  return infrastructure;
+async function update(filter, updateObject, options={multi:true}) {
+  const updateResult = await Infrastructure.updateMany(filter, {"$set": updateObject}, options);
+  return updateResult.acknowledged;
 }
 
 export default {

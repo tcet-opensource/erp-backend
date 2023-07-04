@@ -19,39 +19,32 @@ const departmentSchema = {
 const Department = connector.model('Department', departmentSchema);
 
 //for creating
-async function create(
-  name,
-  acronym,
-  yearOfStarting,
-  accreditions,
-  infrastructures
-){
-    const department = new Department({
-     name,
-     acronym,
-     yearOfStarting,
-     accreditions,
-     infrastructures
+async function create(departmentData){
+  const {name,acronym,yearOfStarting,accreditions,infrastructures} = departmentData;
+  const department = new Department({
+     name: name,
+     acronym:acronym,
+     yearOfStarting:yearOfStarting,
+     accreditions:accreditions,
+     infrastructures:infrastructures
     });
   const departmentDoc = await department.save();
   return departmentDoc;
   }
 
   async function read(filter, limit = 1) {
-    const departmentData = await Department.find(filter).limit(limit);
-    return departmentData;
+    const departmentDoc = await Department.find(filter).limit(limit);
+    return departmentDoc;
   }
 
-  async function update(filter, updateObject) {
-    const department = await Department.findOneAndUpdate(filter, updateObject, {
-      new: true,
-    });
-    return department;
+  async function update(filter, updateObject, options={multi:true}) {
+    const updateResult = await Department.findOneAndUpdate(filter, {"$set": updateObject}, options);
+    return updateResult.acknowledged;
   }
 
   async function remove(filter) {
-    const res = await Department.findOneAndDelete(filter);
-    return res;
+    const deleteResult = await Department.findOneAndDelete(filter);
+    return deleteResult.acknowledged;
   }
   
   export default {
