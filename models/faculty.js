@@ -12,7 +12,7 @@ const facultySchema = {
   papersPublishedPG: { type: Number, required: true },
   papersPublishedUG: { type: Number, required: true },
   department: { type: connector.Schema.Types.ObjectId, ref: "Department", required: true },
-  preferredSubjects: { type: connector.Schema.Types.ObjectId, ref: "Course", required: true },
+  preferredSubjects: [{ type: connector.Schema.Types.ObjectId, ref: "Course", required: true }],
   designation: { type: [String], enum: ["HOD", "Assistant Professor", "Associate Professor", "Activity Head"], required: true },
   natureOfAssociation: { type: String, enum: ["Regular", "Contract", "Adjunct"], required: true },
   additionalResponsibilities: { type: String, required: true },
@@ -20,8 +20,10 @@ const facultySchema = {
 
 facultySchema.virtual('tcetexperience').get(function() {
   const currentDate = new Date();
-  const joiningYear = this.dateOfJoining.getFullYear(); // eslint-disable-next-line max-len
-  const leavingYear = this.dateOfLeaving ? this.dateOfLeaving.getFullYear : currentDate.getFullYear;
+  const joiningYear = this.dateOfJoining.getFullYear(); 
+  const leavingYear = this.dateOfLeaving ? 
+    this.dateOfLeaving.getFullYear : 
+    currentDate.getFullYear;
   return leavingYear - joiningYear;
 });
 
@@ -46,7 +48,7 @@ async function read(filter, limit = 1) {
 }
 
 async function update(filter, updateObject) {
-  const faculty = await Faculty.findOneAndUpdate(filter, updateObject, { upsert: true, new: true });
+  const faculty = await Faculty.findOneAndUpdate(filter, updateObject, { new: true });
   return faculty;
 }
 
