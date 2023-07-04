@@ -16,13 +16,15 @@ async function remove(filter) {
 }
 
 async function create(infrastructureData) {
-  const {name, type, wing, floor, capacity} = infrastructureData;
+  const {
+    name, type, wing, floor, capacity,
+  } = infrastructureData;
   const infrastructure = new Infrastructure({
-    name: name,
-    type: type,
-    wing: wing,
-    floor: floor,
-    capacity: capacity,
+    name,
+    type,
+    wing,
+    floor,
+    capacity,
   });
   const infrastructureDoc = await infrastructure.save();
   return infrastructureDoc;
@@ -33,8 +35,8 @@ async function read(filter, limit = 1) {
   return infrastructureDoc;
 }
 
-async function update(filter, updateObject, options={multi:true}) {
-  const updateResult = await Infrastructure.updateMany(filter, {"$set": updateObject}, options);
+async function update(filter, updateObject, options = { multi: true }) {
+  const updateResult = await Infrastructure.updateMany(filter, { $set: updateObject }, options);
   return updateResult.acknowledged;
 }
 

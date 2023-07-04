@@ -18,12 +18,12 @@ const facultySchema = {
   additionalResponsibilities: { type: String, required: true },
 };
 
-facultySchema.virtual('tcetexperience').get(function() {
+facultySchema.virtual("tcetexperience").get(() => {
   const currentDate = new Date();
-  const joiningYear = this.dateOfJoining.getFullYear(); 
-  const leavingYear = this.dateOfLeaving ? 
-    this.dateOfLeaving.getFullYear : 
-    currentDate.getFullYear;
+  const joiningYear = this.dateOfJoining.getFullYear();
+  const leavingYear = this.dateOfLeaving
+    ? this.dateOfLeaving.getFullYear
+    : currentDate.getFullYear;
   return leavingYear - joiningYear;
 });
 
@@ -47,8 +47,8 @@ async function read(filter, limit = 1) {
   return facultyDoc;
 }
 
-async function update(filter, updateObject, options={multi: true }) {
-  const updateResult = await Faculty.updateMany(filter, {"$set": updateObject}, options);
+async function update(filter, updateObject, options = { multi: true }) {
+  const updateResult = await Faculty.updateMany(filter, { $set: updateObject }, options);
   return updateResult.acknowledged;
 }
 

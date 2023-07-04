@@ -7,7 +7,6 @@ const organizationSchema = {
   accreditation: { type: connector.Schema.Types.ObjectId, ref: "Accrediation", required: "true" },
 };
 
-
 const Organization = connector.model("Organization", organizationSchema);
 
 async function remove(filter) {
@@ -16,12 +15,14 @@ async function remove(filter) {
 }
 
 async function create(organizationData) {
-  const {parent, startDate, name, accreditation} = organizationData;
+  const {
+    parent, startDate, name, accreditation,
+  } = organizationData;
   const organization = new Organization({
-    parent: parent,
-    startDate: startDate,
-    name: name,
-    accreditation: accreditation,
+    parent,
+    startDate,
+    name,
+    accreditation,
   });
   const organizationDoc = await organization.save();
   return organizationDoc;
@@ -32,8 +33,8 @@ async function read(filter, limit = 1) {
   return organizationDoc;
 }
 
-async function update(filter, updateObject, options= {multi:true}) {
-  const updateResult = await Organization.updateMany(filter, {"$set": updateObject}, options);
+async function update(filter, updateObject, options = { multi: true }) {
+  const updateResult = await Organization.updateMany(filter, { $set: updateObject }, options);
   return updateResult.acknowledged;
 }
 

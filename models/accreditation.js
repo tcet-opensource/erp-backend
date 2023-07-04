@@ -14,13 +14,15 @@ async function remove(filter) {
   return deleteResult.acknowledged;
 }
 
-async function create(accreditationData){
-  const {name, agencyName, dateofAccreditation, dateofExpiry} = accreditationData;
+async function create(accreditationData) {
+  const {
+    name, agencyName, dateofAccreditation, dateofExpiry,
+  } = accreditationData;
   const accreditation = new Accreditation({
-    name: name,
-    agencyName: agencyName,
-    dateofAccreditation: dateofAccreditation,
-    dateofExpiry: dateofExpiry,
+    name,
+    agencyName,
+    dateofAccreditation,
+    dateofExpiry,
   });
   const accreditationDoc = await accreditation.save();
   return accreditationDoc;
@@ -31,8 +33,8 @@ async function read(filter, limit = 1) {
   return accreditationDoc;
 }
 
-async function update(filter, updateObject, options={multi: true}) {
-  const deleteResult = await Accreditation.updateMany(filter, {"$set": updateObject}, options);
+async function update(filter, updateObject, options = { multi: true }) {
+  const deleteResult = await Accreditation.updateMany(filter, { $set: updateObject }, options);
   return deleteResult.acknowledged;
 }
 

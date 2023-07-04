@@ -1,5 +1,5 @@
 import connector from "#models/databaseUtil";
-import { hashPassword, logger } from "#util";
+import { hashPassword } from "#util";
 
 connector.set("debug", true);
 const userSchema = {
@@ -17,27 +17,29 @@ async function remove(filter) {
   return deleteResult.acknowledged;
 }
 
-async function create(userData, options={}) {
-  const {name, password, emailId, uid, userType} = userData;
+async function create(userData) {
+  const {
+    name, password, emailId, uid, userType,
+  } = userData;
   const hashedPassword = await hashPassword(password);
   const user = new User({
-    name: name,
+    name,
     password: hashedPassword,
-    emailId: emailId,
-    uid: uid,
-    userType: userType,
+    emailId,
+    uid,
+    userType,
   });
   const userDoc = await user.save();
   return userDoc;
 }
 
-async function read(filter, limit = 1, options={}) {
+async function read(filter, limit = 1) {
   const userDoc = await User.find(filter).limit(limit);
   return userDoc;
 }
 
-async function update(filter, updateObject, options = {multi:true}) {
-  const updateResult = await User.updateMany(filter, {"$set": updateObject}, options);
+async function update(filter, updateObject, options = { multi: true }) {
+  const updateResult = await User.updateMany(filter, { $set: updateObject }, options);
   return updateResult.acknowledged;
 }
 

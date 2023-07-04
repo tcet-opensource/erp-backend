@@ -9,8 +9,8 @@ const moduleSchema = {
   cognitiveLevels: [{
     type: String,
     required: true,
-    enum: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'],
-}],
+    enum: ["L1", "L2", "L3", "L4", "L5", "L6"],
+  }],
 };
 
 const Module = connector.model("Module", moduleSchema);
@@ -21,14 +21,16 @@ async function remove(filter) {
 }
 
 async function create(moduleData) {
-  const {  no,name,outcome,contents,hrsPerModule,cognitiveLevels} = moduleData
+  const {
+    no, name, outcome, contents, hrsPerModule, cognitiveLevels,
+  } = moduleData;
   const module = new Module({
-    no: no,
-    name: name,
-    outcome: outcome,
-    contents: contents,
-    hrsPerModule: hrsPerModule,
-    cognitiveLevels: cognitiveLevels
+    no,
+    name,
+    outcome,
+    contents,
+    hrsPerModule,
+    cognitiveLevels,
   });
   const moduleDoc = await module.save();
   return moduleDoc;
@@ -39,8 +41,8 @@ async function read(filter, limit = 1) {
   return moduleDoc;
 }
 
-async function update(filter, updateObject, options={multi: true}) {
-  const updateResult = await Module.updateMany(filter, {"$set": updateObject}, options);
+async function update(filter, updateObject, options = { multi: true }) {
+  const updateResult = await Module.updateMany(filter, { $set: updateObject }, options);
   return updateResult.acknowledged;
 }
 

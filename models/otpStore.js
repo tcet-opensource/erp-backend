@@ -13,10 +13,10 @@ async function remove(filter) {
 }
 
 async function create(otpData) {
-  const {uid, otp} = otpData
+  const { uid, otp } = otpData;
   const otpStore = new OTPStore({
-    uid: uid,
-    otp: otp,
+    uid,
+    otp,
   });
   const otpDoc = await otpStore.save();
   return otpDoc;
@@ -28,7 +28,7 @@ async function read(filter, limit = 1) {
 }
 
 async function update(filter, updateObject, options = { upsert: true }) {
-  const updateResult = await OTPStore.updateMany(filter, {"$set": updateObject}, options);
+  const updateResult = await OTPStore.updateMany(filter, { $set: updateObject }, options);
   return updateResult.acknowledged;
 }
 

@@ -1,4 +1,4 @@
-import connector from "./databaseUtil";
+import connector from "#models/databaseUtil";
 
 connector.set("debug", true);
 
@@ -13,29 +13,29 @@ const attendanceSchema = {
 
 const Attendance = connector.model("Attendance", attendanceSchema);
 
-async function create(attendanceData){
-  const {student, course, monthlyAttended, monthlyOccured, cumulativeAttended, cumulativeOccured} = attendanceData;
+async function create(attendanceData) {
+  const {
+    student, course, monthlyAttended, monthlyOccured, cumulativeAttended, cumulativeOccured,
+  } = attendanceData;
   const attendance = new Attendance({
-    student: student,
-    course: course,
-    monthlyAttended: monthlyAttended,
-    monthlyOccured: monthlyOccured,
-    cumulativeAttended: cumulativeAttended,
-    cumulativeOccured: cumulativeOccured
+    student,
+    course,
+    monthlyAttended,
+    monthlyOccured,
+    cumulativeAttended,
+    cumulativeOccured,
   });
   const attendanceDoc = await attendance.save();
   return attendanceDoc;
-
 }
 
-async function read(filter, limit = 1){
+async function read(filter, limit = 1) {
   const attendanceDoc = await Attendance.find(filter).limit(limit);
   return attendanceDoc;
-
 }
 
-async function update(filter, updateObject, options={multi:true}) {
-  const updateResult = await Attendance.updateMany(filter, {"$set": updateObject}, options);
+async function update(filter, updateObject, options = { multi: true }) {
+  const updateResult = await Attendance.updateMany(filter, { $set: updateObject }, options);
   return updateResult.acknowledged;
 }
 

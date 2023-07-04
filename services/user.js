@@ -3,7 +3,7 @@ import databaseError from "#error/database";
 import { comparePasswords, hashPassword } from "#util";
 
 export async function authenticateUser(uid, password) {
-  const user = await User.read({ uid: uid }, 1);
+  const user = await User.read({ uid }, 1);
   const passwordMatched = await comparePasswords(password, user[0]?.password);
   if (passwordMatched) {
     return user[0];
@@ -12,14 +12,14 @@ export async function authenticateUser(uid, password) {
 }
 
 export async function userExists(uid, email) {
-  const user = await User.read({ uid: uid, emailId: email }, 1);
+  const user = await User.read({ uid, emailId: email }, 1);
   if (user[0].uid === uid) return true;
   return false;
 }
 
 export async function updatePassword(uid, password) {
   const hashedPassword = await hashPassword(password);
-  const updated = await User.update({ uid: uid }, { password: hashedPassword });
+  const updated = await User.update({ uid }, { password: hashedPassword });
   if (updated) return;
   throw new databaseError.UpdateError("User");
 }
@@ -30,7 +30,9 @@ export async function allUsers() {
 }
 
 export async function createUser(name, password, emailId, uid, userType) {
-  const newUser = await User.create({name, password, emailId, uid, userType});
+  const newUser = await User.create({
+    name, password, emailId, uid, userType,
+  });
   if (newUser.uid === uid) {
     return newUser;
   }
