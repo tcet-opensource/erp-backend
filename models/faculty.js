@@ -6,16 +6,6 @@ const facultySchema = {
   dateOfLeaving: { type: Date, required: false },
   profileLink: { type: String, required: true },
   qualifications: { type: [String], required: true },
-  tcetExperience: {
-    type: Number,
-    get() {
-      const currentDate = new Date();
-      const joiningYear = this.dateOfJoining.getFullYear(); // eslint-disable-next-line max-len
-      const leavingYear = this.dateOfLeaving ? this.dateOfLeaving.getFullYear : currentDate.getFullYear;
-      return leavingYear - joiningYear;
-    },
-    required: true,
-  },
   totalExperience: { type: Number, required: true },
   achievements: { type: [String], required: true },
   areaOfSpecialization: { type: [String], required: true },
@@ -27,6 +17,13 @@ const facultySchema = {
   natureOfAssociation: { type: String, enum: ["Regular", "Contract", "Adjunct"], required: true },
   additionalResponsibilities: { type: String, required: true },
 };
+
+facultySchema.virtual('tcetexperience').get(function() {
+  const currentDate = new Date();
+  const joiningYear = this.dateOfJoining.getFullYear(); // eslint-disable-next-line max-len
+  const leavingYear = this.dateOfLeaving ? this.dateOfLeaving.getFullYear : currentDate.getFullYear;
+  return leavingYear - joiningYear;
+});
 
 const Faculty = connector.model("Faculty", facultySchema);
 
