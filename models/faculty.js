@@ -1,4 +1,4 @@
-const { connector } = require("./databaseUtil");
+import connector from "#models/databaseUtil";
 
 const facultySchema = {
   ERPID: { type: String, required: true },
@@ -18,12 +18,12 @@ const facultySchema = {
   additionalResponsibilities: { type: String, required: true },
 };
 
-facultySchema.virtual('tcetexperience').get(function() {
+facultySchema.virtual("tcetexperience").get(() => {
   const currentDate = new Date();
-  const joiningYear = this.dateOfJoining.getFullYear(); 
-  const leavingYear = this.dateOfLeaving ? 
-    this.dateOfLeaving.getFullYear : 
-    currentDate.getFullYear;
+  const joiningYear = this.dateOfJoining.getFullYear();
+  const leavingYear = this.dateOfLeaving
+    ? this.dateOfLeaving.getFullYear
+    : currentDate.getFullYear;
   return leavingYear - joiningYear;
 });
 
@@ -32,8 +32,8 @@ const Faculty = connector.model("Faculty", facultySchema);
 // CRUD Operations
 
 async function remove(filter) {
-  const del = await Faculty.findOneAndDelete(filter);
-  return del;
+  const deleteResult = await Faculty.deleteMany(filter);
+  return deleteResult.acknowledged;
 }
 
 async function create(facultyData) {
@@ -43,13 +43,13 @@ async function create(facultyData) {
 }
 
 async function read(filter, limit = 1) {
-  const facultyread = await Faculty.find(filter).limit(limit);
-  return facultyread;
+  const facultyDoc = await Faculty.find(filter).limit(limit);
+  return facultyDoc;
 }
 
-async function update(filter, updateObject) {
-  const faculty = await Faculty.findOneAndUpdate(filter, updateObject, { new: true });
-  return faculty;
+async function update(filter, updateObject, options = { multi: true }) {
+  const updateResult = await Faculty.updateMany(filter, { $set: updateObject }, options);
+  return updateResult.acknowledged;
 }
 
 export default {
