@@ -4,7 +4,7 @@ const organizationSchema = {
   parent: { type: connector.Schema.Types.ObjectId, ref: "Organization", required: "true" },
   startDate: { type: Date, required: true },
   name: { type: String, required: true },
-  accreditation: { type: connector.Schema.Types.ObjectId, ref: "Accrediation", required: "true" },
+  accreditations: [{ type: connector.Schema.Types.ObjectId, ref: "Accrediation", required: "true" }],
 };
 
 const Organization = connector.model("Organization", organizationSchema);
