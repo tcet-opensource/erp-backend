@@ -1,4 +1,4 @@
-import { createInfrastructure } from "#services/infrastructure";
+import { createInfrastructure, deleteInfrastructure } from "#services/infrastructure";
 import { logger } from "#util";
 
 async function addinfrastructure(req, res) {
@@ -15,4 +15,15 @@ async function addinfrastructure(req, res) {
   }
 }
 
-export default { addinfrastructure };
+async function deleteinfrastructure(req, res) {
+  const { documentID } = req.params;
+  try {
+    await deleteInfrastructure(documentID);
+
+    res.json({ res: `Deleted infrastructure with ID ${documentID}` });
+  } catch (error) {
+    logger.error("Error while deleting", error);
+    res.status(500).json({ error: "Error while deleting from DB" });
+  }
+}
+export default { addinfrastructure, deleteinfrastructure };
