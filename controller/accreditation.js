@@ -1,4 +1,4 @@
-import { addNewAccreditation } from "#services/accreditation";
+import { addNewAccreditation, deleteAccreditationById } from "#services/accreditation";
 import { logger } from "#util";
 
 async function addAccreditation(req, res) {
@@ -16,9 +16,10 @@ async function addAccreditation(req, res) {
   }
 }
 async function deleteAccreditation(req, res) {
-  const { documentID } = req.params;
+  const { accreditationID } = req.params;
+  console.log(accreditationID)
   try {
-    await deleteAccreditationById(documentID);
+    await deleteAccreditationById(accreditationID);
     res.json({ res: "Accreditation deleted successfully" });
   } catch (error) {
     logger.error("Error while deleting", error);
