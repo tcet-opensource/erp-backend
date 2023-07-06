@@ -1,10 +1,12 @@
 import infrastructure from "#models/infrastructure";
 import databaseError from "#error/database";
 
-export async function createinfrastructure(name, type, wing, floor, capacity) {
-  const newinfrastructure = await infrastructure.create(name, type, wing, floor, capacity);
-  if (newinfrastructure.name === name) {
-    return newinfrastructure;
+export async function createInfrastructure(name, type, wing, floor, capacity) {
+  const newInfrastructure = await infrastructure.create({
+    name, type, wing, floor, capacity,
+  });
+  if (newInfrastructure.name === name) {
+    return newInfrastructure;
   }
   throw new databaseError.DataEntryError("infrastructure");
 }
