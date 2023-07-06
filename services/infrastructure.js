@@ -11,11 +11,11 @@ export async function createInfrastructure(name, type, wing, floor, capacity) {
   throw new databaseError.DataEntryError("infrastructure");
 }
 
-export async function deleteInfrastructure(documentID) {
-  try {
-    await infrastructure.findOneAndDelete({ _id: documentID });
-  } catch (error) {
-    // Handle any errors that occur during the deletion process
-    throw new Error(`Error deleting infrastructure: ${error.message}`);
+export async function deleteInfrastructureById(infrastructureId) {
+  const deleted =  await infrastructure.remove({ _id: infrastructureId });
+  if (deleted){
+    return deleted;
   }
+  throw new databaseError.DataDeleteError("infrastructure");
+  
 }

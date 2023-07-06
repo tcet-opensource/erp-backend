@@ -18,11 +18,11 @@
 // History.
 // ------------------------------------------------------------------------------------------
 /**
- * @api {delete} /infrastructure/delete/:documentID Delete Infrastructure
+ * @api {delete} /infrastructure/delete/:infrastructureId Delete Infrastructure
  * @apiName DeleteInfrastructure
  * @apiGroup Infrastructure
  *
- * @apiParam {String} documentID The ID of the infrastructure document to delete.
+ * @apiParam {String} infrastructureId The ID of the infrastructure document to delete.
  *
  * @apiSuccess {String} res Success message indicating the deletion.
  *
