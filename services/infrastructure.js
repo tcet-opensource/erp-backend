@@ -10,3 +10,12 @@ export async function createInfrastructure(name, type, wing, floor, capacity) {
   }
   throw new databaseError.DataEntryError("infrastructure");
 }
+
+export async function updateinfrastructure(filter,data){
+  const updateInfrastructure = await infrastructure.update({filter,data
+ });
+  if(updateInfrastructure.name === name){
+    return updateInfrastructure;
+  }
+throw new databaseError.DataEntryError("Infrastructure");
+}
