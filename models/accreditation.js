@@ -9,8 +9,8 @@ const accreditationSchema = {
 
 const Accreditation = connector.model("Accreditation", accreditationSchema);
 
-async function remove(filter) {
-  const res = await Accreditation.findOneAndDelete(filter);
+async function remove(accreditationID) {
+  const res = await Accreditation.findOneAndDelete(accreditationID);
   return res;
 }
 
