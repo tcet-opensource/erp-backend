@@ -1,10 +1,45 @@
+
+
+// ------------------------------------------------------------------------------------------
+// General apiDoc documentation blocks and old history blocks.
+// ------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------
+// Current Success.
+// ------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------
+// Current Errors.
+// ------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------
+// Current Permissions.
+// ------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------
+// History.
+// ------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------
+// Index.
+// ------------------------------------------------------------------------------------------
+
+/**
+ * @api {get} / Retrieve Home Information
+ * @apiName GetIndex
+ * @apiGroup index
+ *
+ * @apiSuccess {String} res server working.
+ */
+
+// ------------------------------------------------------------------------------------------
+// Auth.
+// ------------------------------------------------------------------------------------------
+
 /**
  * @api {post} /auth Login User
  * @apiName LoginUser
  * @apiGroup Authentication
  * 
- * @apiParam {String} id User ID.
- * @apiParam {String} password User password.
+ * @apiBody {String} id User ID.
+ * @apiBody {String} password User password.
  * 
  * @apiSuccess {String} res Response message.
  * @apiSuccess {Object} user User details.
@@ -68,8 +103,8 @@
  * @apiGroup Authentication
  * @apiDescription Sends an OTP (One-Time Password) to the user's email ID.
  * 
- * @apiParam {String} uid User ID.
- * @apiParam {String} emailId User email ID.
+ * @apiBody {String} uid User ID.
+ * @apiBody {String} emailId User email ID.
  * 
  * @apiSuccess {String} res Response message.
  * 
@@ -88,9 +123,9 @@
  * @apiGroup Authentication
  * @apiDescription Resets the user's password using the provided OTP (One-Time Password).
  * 
- * @apiParam {String} uid User ID.
- * @apiParam {String} otp One-Time Password received by the user.
- * @apiParam {String} password New password.
+ * @apiBody {String} uid User ID.
+ * @apiBody {String} otp One-Time Password received by the user.
+ * @apiBody {String} password New password.
  * 
  * @apiSuccess {String} res Response message.
  * 
