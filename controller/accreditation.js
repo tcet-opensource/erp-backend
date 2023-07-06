@@ -1,4 +1,4 @@
-import { addNewAccreditation } from "#services/accreditation";
+import { addNewAccreditation, updateNewAccreditation } from "#services/accreditation";
 import { logger } from "#util";
 
 async function addAccreditation(req, res) {
@@ -16,4 +16,19 @@ async function addAccreditation(req, res) {
   }
 }
 
-export default { addAccreditation };
+async function updateAccreditation(req, res) {
+  const {
+    id, ...data
+  } = req.body;
+  const filter = { id };
+
+  try {
+    await updateNewAccreditation(filter, data);
+    res.json({ res: "accreditation updated" });
+  } catch (error) {
+    logger.error("Error while inserting", error);
+    res.status(500);
+    res.json({ err: "Error while inserting in DB" });
+  }
+}
+export default { addAccreditation, updateAccreditation };

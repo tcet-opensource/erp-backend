@@ -13,3 +13,11 @@ export async function addNewAccreditation(name, agencyName, dateofAccreditation,
   }
   throw new databaseError.DataEntryError("Accreditation");
 }
+
+export async function updateNewAccreditation(fliter, data) {
+  const updateAccreditation = await accreditation.update(fliter, data);
+  if (updateAccreditation) {
+    return updateAccreditation;
+  }
+  throw new databaseError.DataEntryError("Accrediation");
+}
