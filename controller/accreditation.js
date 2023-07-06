@@ -16,10 +16,10 @@ async function addAccreditation(req, res) {
   }
 }
 async function deleteAccreditation(req, res) {
-  const { accreditationID } = req.params;
-  console.log(accreditationID)
+  const { filter } = req.params;
+  console.log(filter)
   try {
-    await deleteAccreditationById(accreditationID);
+    await deleteAccreditationById(filter);
     res.json({ res: "Accreditation deleted successfully" });
   } catch (error) {
     logger.error("Error while deleting", error);
