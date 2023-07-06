@@ -1,5 +1,7 @@
 import { createInfrastructure } from "#services/infrastructure";
+import { infrastructurelist } from "#services/infrastructure";
 import { logger } from "#util";
+import { query } from "express";
 
 async function addinfrastructure(req, res) {
   const {
@@ -15,4 +17,11 @@ async function addinfrastructure(req, res) {
   }
 }
 
-export default { addinfrastructure };
+async function getinfrastructure(req, res) {
+  let search= req.query.search
+  const infralist = await infrastructurelist();
+  res.json({ res: infralist });
+}
+
+
+export default { addinfrastructure, getinfrastructure };

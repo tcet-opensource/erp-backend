@@ -1,5 +1,6 @@
 import infrastructure from "#models/infrastructure";
 import databaseError from "#error/database";
+import infrastructure from "#controller/infrastructure";
 
 export async function createInfrastructure(name, type, wing, floor, capacity) {
   const newInfrastructure = await infrastructure.create({
@@ -9,4 +10,9 @@ export async function createInfrastructure(name, type, wing, floor, capacity) {
     return newInfrastructure;
   }
   throw new databaseError.DataEntryError("infrastructure");
+}
+
+export async function infrastructurelist() {
+  const infralist = await infrastructure.read({search}, 0);
+  return infralist;
 }
