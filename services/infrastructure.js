@@ -11,7 +11,7 @@ export async function createInfrastructure(name, type, wing, floor, capacity) {
   throw new databaseError.DataEntryError("infrastructure");
 }
 
-export async function updateinfrastructure(filter,data){
+export async function updateInfrastructure(filter,data){
   const updateInfrastructure = await infrastructure.update({filter,data
  });
   if(updateInfrastructure.name === name){

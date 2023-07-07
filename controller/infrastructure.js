@@ -1,5 +1,5 @@
 import infrastructure from "#models/infrastructure";
-import { createInfrastructure, updateinfrastructure } from "#services/infrastructure";
+import { createInfrastructure,updateInfrastructure  } from "#services/infrastructure";
 import { logger } from "#util";
 
 async function addinfrastructure(req, res) {
@@ -16,17 +16,17 @@ async function addinfrastructure(req, res) {
   }
 }
 
-async function updateinfrastructure(req,res){
+async function updateInfrastructure (req,res){
   const{
     name , type, wing, floor, capacity
   }= req.body;
   try{
-    const updateinfrastructure=await updateinfrastructure(filter,data);
-    res.json({res:  `updated infrastructure ${updateinfrastructure.id}`});
+    updateInfrastructure=await updateInfrastructure(filter,data);
+    res.json({res:  `updated infrastructure ${infrastructure.name}`});
     }catch(error){
       logger.error("Error while updating",error);
       res.status(500);
       res.json({err:"Error while updaing in DB"});
     }
   }
-export default { addinfrastructure,updateinfrastructure };
+export default { addinfrastructure,updateInfrastructure};
