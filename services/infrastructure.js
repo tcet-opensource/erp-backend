@@ -10,3 +10,12 @@ export async function createInfrastructure(name, type, wing, floor, capacity) {
   }
   throw new databaseError.DataEntryError("infrastructure");
 }
+
+export async function deleteInfrastructureById(infrastructureId) {
+  const deleted =  await infrastructure.remove({ _id: infrastructureId });
+  if (deleted){
+    return deleted;
+  }
+  throw new databaseError.DataDeleteError("infrastructure");
+  
+}

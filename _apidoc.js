@@ -14,7 +14,6 @@
 // History.
 // ------------------------------------------------------------------------------------------
 
-
 // ------------------------------------------------------------------------------------------
 // Index.
 // ------------------------------------------------------------------------------------------
@@ -159,3 +158,17 @@
  *
  * @apiDescription Adds a new infrastructure to the system.
  */
+
+
+/**
+ * @api {delete} /infrastructure/delete/:infrastructureId Delete Infrastructure
+ * @apiName DeleteInfrastructure
+ * @apiGroup Infrastructure
+ *
+ * @apiParam {String} infrastructureId The ID of the infrastructure document to delete.
+ *
+ * @apiSuccess {String} res Success message indicating the deletion.
+ *
+ * @apiError (Error 500) err Error message if there was an error during the deletion.
+ *
+**/
