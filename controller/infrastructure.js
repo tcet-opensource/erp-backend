@@ -1,4 +1,4 @@
-import { createinfrastructure } from "#services/infrastructure";
+import { createInfrastructure } from "#services/infrastructure";
 import { logger } from "#util";
 
 async function addinfrastructure(req, res) {
@@ -6,7 +6,7 @@ async function addinfrastructure(req, res) {
     name, type, wing, floor, capacity,
   } = req.body;
   try {
-    const newinfrastructure = await createinfrastructure(name, type, wing, floor, capacity);
+    const newinfrastructure = await createInfrastructure(name, type, wing, floor, capacity);
     res.json({ res: `added user ${newinfrastructure.id}` });
   } catch (error) {
     logger.error("Error while inserting", error);
