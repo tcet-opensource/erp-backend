@@ -244,6 +244,19 @@
  */
 
 /**
+ * @api {delete} /accreditation/delete/:accreditationId To delete Accreditation
+ * @apiName DeleteAccreditation
+ * @apiGroup Accreditation
+ *
+ * @apiParam {String} accreditationId The ID of the accreditation document to delete.
+ *
+ * @apiSuccess {String} res Success message indicating the deletion.
+ *
+ * @apiError (Error 500) err Error message if there was an error during the deletion.
+ *
+* */
+
+/**
  * @api {post} /accreditation/update update accreditation details
  * @apiName UpdateAccreditation
  * @apiGroup Accreditation
@@ -276,3 +289,4 @@
  * @apiSuccess {Date} accreditation.dateofAccreditation Date on which accreditation was issued.
  * @apiSuccess {Date} accreditation.dateofExpiry Date till which accreditation is valid.
  */
+
