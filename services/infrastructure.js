@@ -1,8 +1,8 @@
-import infrastructure from "#models/infrastructure";
+import Infrastructure from "#models/infrastructure";
 import databaseError from "#error/database";
 
 export async function createInfrastructure(name, type, wing, floor, capacity) {
-  const newInfrastructure = await infrastructure.create({
+  const newInfrastructure = await Infrastructure.create({
     name, type, wing, floor, capacity,
   });
   if (newInfrastructure.name === name) {
@@ -11,11 +11,24 @@ export async function createInfrastructure(name, type, wing, floor, capacity) {
   throw new databaseError.DataEntryError("infrastructure");
 }
 
-export async function updateInfrastructure(filter,data){
-  const updateInfrastructure = await infrastructure.update({filter,data
- });
-  if(updateInfrastructure.name === name){
-    return updateInfrastructure;
+export async function updateInfrastructureById(id,data){
+  const updated = await infrastructure.update({_id: id},data);
+  if(updated){
+    return updated;
   }
 throw new databaseError.DataEntryError("Infrastructure");
+}
+
+export async function infrastructureList(filter) {
+  const infralist = await Infrastructure.read(filter, 0);
+  return infralist;
+}
+
+export async function deleteInfrastructureById(infrastructureId) {
+  const deleted =  await Infrastructure.remove({ _id: infrastructureId });
+  if (deleted){
+    return deleted;
+  }
+  throw new databaseError.DataDeleteError("infrastructure");
+  
 }
