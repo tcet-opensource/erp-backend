@@ -290,7 +290,7 @@
  * @apiError (Error 500) err Error in updating database
  *
  */
- 
+
 /**
  * @api {get} accreditation/list Get Accreditation List
  * @apiName GetAccreditation
@@ -307,4 +307,3 @@
  * @apiSuccess {Date} accreditation.dateofAccreditation Date on which accreditation was issued.
  * @apiSuccess {Date} accreditation.dateofExpiry Date till which accreditation is valid.
  */
-
