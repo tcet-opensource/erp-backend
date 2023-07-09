@@ -21,9 +21,30 @@
 /**
  * @api {get} / Retrieve Home Information
  * @apiName GetIndex
- * @apiGroup index
+ * @apiGroup Index
  *
  * @apiSuccess {String} res server working.
+ */
+
+// ------------------------------------------------------------------------------------------
+// User.
+// ------------------------------------------------------------------------------------------
+
+/**
+ * @api {post} /add Add new User
+ * @apiName AddUser
+ * @apiGroup User
+ *
+ * @apiBody {String} name Name and surname of user
+ * @apiBody {String} password Password of the user
+ * @apiBody {String} emailId EmailID of the user. It would be the college assosiated emailID
+ * @apiBody {String} uid This will be their ERPID
+ * @apiBody {String="Student", "Faculty"} userType This will be type of user.
+ * currently we support only 2
+ *
+ * @apiSuccess {String} res returns success message "added user with \<ID\>".
+ *
+ * @apiError (Error 500) err Error while inserting in Database.
  */
 
 // ------------------------------------------------------------------------------------------
@@ -160,7 +181,7 @@
  */
 
 /**
- * @api {get} infrastructure/list Request Infrastructure List
+ * @api {get} infrastructure/list Get Infrastructure List
  * @apiName GetInfrastructure
  * @apiGroup Infrastructure
  *
@@ -237,4 +258,21 @@
  * @apiSuccess {String} res Accreditation updated.
  * @apiError (Error 500) err Error in updating database
  *
+ */
+ 
+/**
+ * @api {get} accreditation/list Get Accreditation List
+ * @apiName GetAccreditation
+ * @apiGroup Accreditation
+ *
+ * @apiQuery {String} [name] Name of accreditation .
+ * @apiQuery {String} [agencyName] Name of agency that issued the accreditation.
+ * @apiQuery {Date} [dateofAccreditation] Date on which accreditation was issued.
+ * @apiQuery {Date} [dateofExpiry] Date till which accreditation is valid.
+ *
+ * @apiSuccess {accreditation[]} res Array of Filtered accreditation Doc .
+ * @apiSuccess {String} accreditation.name Name of accreditation
+ * @apiSuccess {String} accreditation.agencyName Name of agency that issued the accreditation.
+ * @apiSuccess {Date} accreditation.dateofAccreditation Date on which accreditation was issued.
+ * @apiSuccess {Date} accreditation.dateofExpiry Date till which accreditation is valid.
  */
