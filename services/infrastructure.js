@@ -11,6 +11,14 @@ export async function createInfrastructure(name, type, wing, floor, capacity) {
   throw new databaseError.DataEntryError("infrastructure");
 }
 
+export async function updateInfrastructureById(id,data){
+  const updated = await infrastructure.update({_id: id},data);
+  if(updated){
+    return updated;
+  }
+throw new databaseError.DataEntryError("Infrastructure");
+}
+
 export async function infrastructureList(filter) {
   const infralist = await Infrastructure.read(filter, 0);
   return infralist;
