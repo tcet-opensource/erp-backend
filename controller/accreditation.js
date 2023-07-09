@@ -1,4 +1,4 @@
-import { addNewAccreditation, deleteAccreditationById, updateAccreditationById } from "#services/accreditation";
+import { addNewAccreditation, deleteAccreditationById, updateAccreditationById, getAccreditations } from "#services/accreditation";
 import { logger } from "#util";
 
 async function addAccreditation(req, res) {
@@ -31,7 +31,7 @@ async function updateAccreditation(req, res) {
   const {
     id, ...data
   } = req.body;
-
+  
   try {
     await updateAccreditationById(id, data);
     res.json({ res: "accreditation updated" });
@@ -41,4 +41,16 @@ async function updateAccreditation(req, res) {
     res.json({ err: "Error while inserting in DB" });
   }
 }
-export default { addAccreditation, updateAccreditation, deleteAccreditation };
+
+async function showAccreditation(req, res) {
+  try {
+    const accreditation = await getAccreditations(req.query);
+    return res.json({ res: accreditation });
+  } catch (error) {
+    logger.error("Error while fetching", error);
+    res.status(500);
+    return res.json({ err: "Error while fetching the data" });
+  }
+}
+
+export default { addAccreditation, updateAccreditation, deleteAccreditation, showAccreditation };
