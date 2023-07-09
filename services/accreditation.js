@@ -14,10 +14,10 @@ export async function addNewAccreditation(name, agencyName, dateofAccreditation,
   throw new databaseError.DataEntryError("Add Accreditation");
 }
 
-export async function getAccreditation(filter) {
-  const accreditation = await Accreditation.read({ name: filter });
-  if (accreditation) {
-    return accreditation;
+export async function getAccreditations(filter) {
+  const accreditations = await Accreditation.read(filter);
+  if (accreditations) {
+    return accreditations;
   }
-  throw new databaseError.DataNotFoundError("Get Accreditation");
+  throw new databaseError.DataNotFoundError("Accreditation");
 }

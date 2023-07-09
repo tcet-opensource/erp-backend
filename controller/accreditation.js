@@ -1,4 +1,4 @@
-import { addNewAccreditation, getAccreditation } from "#services/accreditation";
+import { addNewAccreditation, getAccreditations } from "#services/accreditation";
 import { logger } from "#util";
 
 async function addAccreditation(req, res) {
@@ -18,7 +18,7 @@ async function addAccreditation(req, res) {
 
 async function showAccreditation(req, res) {
   try {
-    const accreditation = await getAccreditation(req.params.filter);
+    const accreditation = await getAccreditations(req.query);
     return res.json({ res: accreditation });
   } catch (error) {
     logger.error("Error while fetching", error);
