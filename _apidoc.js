@@ -244,6 +244,23 @@
  */
 
 /**
+ * @api {post} /accreditation/update update accreditation details
+ * @apiName UpdateAccreditation
+ * @apiGroup Accreditation
+ * @apiDescription update Existing accreditation
+ *
+ * @apiBody {String} id Id of the accreditation to be updated
+ * @apiBody {String} [name] Accreditation name.
+ * @apiBody {String} [agencyName] Agency name.
+ * @apiBody {Date} [dateofAccreditation] Date of accreditation.
+ * @apiBody {Date} [dateofExpiry] Date of expiry.
+ *
+ * @apiSuccess {String} res Accreditation updated.
+ * @apiError (Error 500) err Error in updating database
+ *
+ */
+ 
+/**
  * @api {get} accreditation/list Get Accreditation List
  * @apiName GetAccreditation
  * @apiGroup Accreditation
