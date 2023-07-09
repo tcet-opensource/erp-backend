@@ -16,7 +16,6 @@ const departmentSchema = {
   }],
 };
 
-
 const Department = connector.model("Department", departmentSchema);
 
 // for creating
@@ -56,4 +55,3 @@ export default {
   update,
   remove,
 };
-

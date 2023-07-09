@@ -5,5 +5,5 @@ import { UserDoesNotExistError } from "#error/UserDoesNotExist";
 import { DataDeleteError } from "#error/DataDeleteError";
 
 export default {
-  DataEntryError, DataNotFoundError, UpdateError, UserDoesNotExistError,DataDeleteError,
+  DataEntryError, DataNotFoundError, UpdateError, UserDoesNotExistError, DataDeleteError,
 };

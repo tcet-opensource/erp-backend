@@ -11,12 +11,12 @@ export async function createInfrastructure(name, type, wing, floor, capacity) {
   throw new databaseError.DataEntryError("infrastructure");
 }
 
-export async function updateInfrastructureById(id,data){
-  const updated = await infrastructure.update({_id: id},data);
-  if(updated){
+export async function updateInfrastructureById(id, data) {
+  const updated = await Infrastructure.update({ _id: id }, data);
+  if (updated) {
     return updated;
   }
-throw new databaseError.DataEntryError("Infrastructure");
+  throw new databaseError.DataEntryError("Infrastructure");
 }
 
 export async function infrastructureList(filter) {
@@ -25,10 +25,9 @@ export async function infrastructureList(filter) {
 }
 
 export async function deleteInfrastructureById(infrastructureId) {
-  const deleted =  await Infrastructure.remove({ _id: infrastructureId });
-  if (deleted){
+  const deleted = await Infrastructure.remove({ _id: infrastructureId });
+  if (deleted) {
     return deleted;
   }
   throw new databaseError.DataDeleteError("infrastructure");
-  
 }
