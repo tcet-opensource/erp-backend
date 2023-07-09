@@ -221,3 +221,16 @@
  *       "err": "Error while inserting in DB"
  *     }
  */
+
+/**
+ * @api {delete} /accreditation/delete/:accreditationId To delete Accreditation
+ * @apiName DeleteAccreditation
+ * @apiGroup Accreditation
+ *
+ * @apiParam {String} accreditationId The ID of the accreditation document to delete.
+ *
+ * @apiSuccess {String} res Success message indicating the deletion.
+ *
+ * @apiError (Error 500) err Error message if there was an error during the deletion.
+ *
+* */
