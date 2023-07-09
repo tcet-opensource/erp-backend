@@ -23,7 +23,7 @@ export async function getAccreditations(filter) {
 }
 
 export async function deleteAccreditationById(accredationId) {
-  const deleted = await accreditation.remove({ _id: accredationId });
+  const deleted = await Accreditation.remove({ _id: accredationId });
   if (deleted) {
     return deleted;
   }
@@ -31,7 +31,7 @@ export async function deleteAccreditationById(accredationId) {
 }
 
 export async function updateAccreditationById(id, data) {
-  const updated = await accreditation.update({ _id: id }, data);
+  const updated = await Accreditation.update({ _id: id }, data);
   if (updated) {
     return updated;
   }

@@ -221,3 +221,20 @@
  *       "err": "Error while inserting in DB"
  *     }
  */
+
+/**
+ * @api {get} accreditation/list Get Accreditation List
+ * @apiName GetAccreditation
+ * @apiGroup Accreditation
+ *
+ * @apiQuery {String} [name] Name of accreditation .
+ * @apiQuery {String} [agencyName] Name of agency that issued the accreditation.
+ * @apiQuery {String} [dateofAccreditation] Date on which accreditation was issued.
+ * @apiQuery {String} [dateofExpiry] Date till which accreditation is valid.
+ *
+ * @apiSuccess {accreditation[]} res Array of Filtered accreditation Doc .
+ * @apiSuccess {String} accreditation.name Name of accreditation
+ * @apiSuccess {String} accreditation.agencyName Name of agency that issued the accreditation.
+ * @apiSuccess {String} accreditation.dateofAccreditation Date on which accreditation was issued.
+ * @apiSuccess {String} accreditation.dateofExpiry Date till which accreditation is valid.
+ */
