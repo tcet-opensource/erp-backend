@@ -191,6 +191,24 @@
  *
 * */
 
+/**
+ * @api {post} /infrastructure/update Update infrastructure details
+ * @apiName UpdateInfrastructure
+ * @apiGroup Infrastructure
+ * @apiDescription update Existing Infrastructure details
+ *
+ * @apiBody {String} id Id of the infrastructure to be updated
+ * @apiBody {String} [name] The name of the infrastructure.
+ * @apiBody {String} [type] The type of the infrastructure.
+ * @apiBody {String} [wing] The wing where the infrastructure is located.
+ * @apiBody {Number} [floor] The floor where the infrastructure is located.
+ * @apiBody {Number} [capacity] The capacity of the infrastructure.
+ *
+ * @apiSuccess {String} res infrastructure updated.
+ * @apiError (Error 500) err Error in updating database
+ *
+ */
+
 // ------------------------------------------------------------------------------------------
 // Accreditation.
 // ------------------------------------------------------------------------------------------

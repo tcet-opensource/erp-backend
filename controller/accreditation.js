@@ -1,4 +1,6 @@
-import { addNewAccreditation, deleteAccreditationById, updateAccreditationById, getAccreditations } from "#services/accreditation";
+import {
+  addNewAccreditation, deleteAccreditationById, updateAccreditationById, getAccreditations,
+} from "#services/accreditation";
 import { logger } from "#util";
 
 async function addAccreditation(req, res) {
@@ -31,7 +33,7 @@ async function updateAccreditation(req, res) {
   const {
     id, ...data
   } = req.body;
-  
+
   try {
     await updateAccreditationById(id, data);
     res.json({ res: "accreditation updated" });
@@ -53,4 +55,6 @@ async function showAccreditation(req, res) {
   }
 }
 
-export default { addAccreditation, updateAccreditation, deleteAccreditation, showAccreditation };
+export default {
+  addAccreditation, updateAccreditation, deleteAccreditation, showAccreditation,
+};
