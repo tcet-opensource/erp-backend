@@ -12,4 +12,5 @@ const practicalSchema = {
   }],
 };
 
+// eslint-disable-next-line  no-unused-vars
 const Practical = connector.model("Practical", practicalSchema);
