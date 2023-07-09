@@ -21,9 +21,30 @@
 /**
  * @api {get} / Retrieve Home Information
  * @apiName GetIndex
- * @apiGroup index
+ * @apiGroup Index
  *
  * @apiSuccess {String} res server working.
+ */
+
+// ------------------------------------------------------------------------------------------
+// User.
+// ------------------------------------------------------------------------------------------
+
+/**
+ * @api {post} /add Add new User
+ * @apiName AddUser
+ * @apiGroup User
+ *
+ * @apiBody {String} name Name and surname of user
+ * @apiBody {String} password Password of the user
+ * @apiBody {String} emailId EmailID of the user. It would be the college assosiated emailID
+ * @apiBody {String} uid This will be their ERPID
+ * @apiBody {String="Student", "Faculty"} userType This will be type of user.
+ * currently we support only 2
+ *
+ * @apiSuccess {String} res returns success message "added user with \<ID\>".
+ *
+ * @apiError (Error 500) err Error while inserting in Database.
  */
 
 // ------------------------------------------------------------------------------------------
@@ -160,7 +181,7 @@
  */
 
 /**
- * @api {get} infrastructure/list Request Infrastructure List
+ * @api {get} infrastructure/list Get Infrastructure List
  * @apiName GetInfrastructure
  * @apiGroup Infrastructure
  *
